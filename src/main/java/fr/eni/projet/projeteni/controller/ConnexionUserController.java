@@ -28,6 +28,6 @@ public class ConnexionUserController {
 
     @PostMapping("/view-connexion")
     public String login(@ModelAttribute Utilisateur utilisateur, Model model) {
-        return "redirect:/view-connexion";
+  return "redirect:/view-connexion";
     }
 }
