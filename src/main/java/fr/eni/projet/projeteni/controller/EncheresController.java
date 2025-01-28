@@ -22,25 +22,18 @@ public class EncheresController {
         this.enchereService = enchereService;
     }
 
-    @GetMapping("/view-articles")
-    public String home(Model model) {
-        var articles = articleVenduService.getAllArticleVendu();
-        model.addAttribute("articles", articles);
-        return "view-articles";
-    }
+    //DOESNT WORK "MISSING DAO CODE"
     @GetMapping("/detail")
     public String afficherEnchereDetail(@RequestParam(name = "id") int id , Model model) {
         model.addAttribute("enchere", enchereService.getEnchere(id));
         return "view-detail-vente";
     }
 
-@GetMapping("/encheres")
+    //OFC IT WORKS
+    @GetMapping
     public String encheres(Model model) {
         var articles = articleVenduService.getAllArticleVendu();
         model.addAttribute("articles", articles);
         return "view-encheres";
     }
-
-
-
 }

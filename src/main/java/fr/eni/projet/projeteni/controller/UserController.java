@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @Controller
 @RequestMapping("/encheres")
 public class UserController {
@@ -20,18 +21,21 @@ public class UserController {
         this.utilisateurService = utilisateurService;
     }
 
+
+//WORKS
     @GetMapping("/connexion")
     public String login(Model model) {
         model.addAttribute("login", new Utilisateur());
         return "view-connexion";
     }
 
-
+//DOSENT WORK
     @PostMapping("/connexion")
     public String login(@ModelAttribute Utilisateur utilisateur, Model model) {
         return "redirect:/view-connexion";
     }
 
+//WORKS
     @GetMapping("/inscription")
     public String creerunChat(Model model) {
         model.addAttribute("creationCompte", new Utilisateur());
@@ -39,13 +43,16 @@ public class UserController {
     }
 
 
+//WORKS (STILL NEEDS PWD ENCRYPTION)
     @PostMapping("/inscription")
     public String newChat(@ModelAttribute Utilisateur utilisateur) {
         utilisateurService.addUtilisateur(utilisateur);
         System.out.println(utilisateur);
-        return "view-connexion";
+        return "redirect:/encheres";
     }
 
+
+//WORKS
     @GetMapping("/modif")
     public String profil(@RequestParam(name = "email") String email, Model model) {
         Utilisateur utilisateur = utilisateurService.getUtilisateur(email);
@@ -58,6 +65,9 @@ public class UserController {
         return "view-profil";
     }
 
+
+
+//WORKS
     @PostMapping("/modif")
     public String mettreAJourProfil(@ModelAttribute Utilisateur utilisateur, Model model) {
         // Récupère l'utilisateur existant
@@ -69,7 +79,6 @@ public class UserController {
         // Sauvegarde les modifications
         utilisateurService.updateUtilisateur(utilisateur);
 
-        return "redirect:/encheres/profil?email="+ utilisateur.getEmail() ; // Redirige vers le profil mis à jour
-
+        return "redirect:/encheres/modif?email="+ utilisateur.getEmail() ; // Redirige vers le profil mis à jour
     }
 }
