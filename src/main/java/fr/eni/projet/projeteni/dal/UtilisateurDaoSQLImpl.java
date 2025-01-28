@@ -16,6 +16,7 @@ public class UtilisateurDaoSQLImpl implements UtilisateurDao {
 
     static final String SELECT_ALL = "select * from UTILISATEURS";
     static final String SELECT_BY_PSEUDO = "select * from UTILISATEURS where email=?";
+    static final String SELECT_BY_ID = "select * from UTILISATEURS where no_utilisateur=?";
     static final String INSERT = "INSERT  INTO UTILISATEURS ([pseudo],[nom],[prenom],[email],[telephone],[rue],[code_postal],[ville],[mot_de_passe],[credit]) " +
                                  "VALUES (:pseudo,:nom,:prenom,:email,:telephone,:rue,:code_postal,:ville,:mot_de_passe,:credit)";
     static final String DELETE = "DELETE FROM UTILISATEURS where email=?";
@@ -40,6 +41,11 @@ public class UtilisateurDaoSQLImpl implements UtilisateurDao {
     @Override
     public Utilisateur read(String email) {
         return jdbcTemplate.queryForObject(SELECT_BY_PSEUDO, BeanPropertyRowMapper.newInstance(Utilisateur.class), email);
+    }
+
+    @Override
+    public Utilisateur read(int no_utilisateur) {
+        return jdbcTemplate.queryForObject(SELECT_BY_ID, BeanPropertyRowMapper.newInstance(Utilisateur.class), no_utilisateur);
     }
 
     @Override

@@ -9,6 +9,8 @@ public interface UtilisateurDao {
 
     Utilisateur read(String email);
 
+    Utilisateur read(int no_utilisateur);
+
     int create(Utilisateur utilisateur);
 
     void update(Utilisateur utilisateur);

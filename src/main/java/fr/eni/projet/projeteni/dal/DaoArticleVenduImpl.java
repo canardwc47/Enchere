@@ -1,8 +1,10 @@
 package fr.eni.projet.projeteni.dal;
 
 import fr.eni.projet.projeteni.bo.ArticleVendu;
+import fr.eni.projet.projeteni.bo.Enchere;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -19,23 +21,29 @@ public class DaoArticleVenduImpl implements DaoArticleVendu {
     static final String DELETE = "DELETE FROM ARTICLES_VENDUS where no_article=?";
     static final String UPDATE = "UPDATE ARTICLES_VENDUS set nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?,prix_initial=?,prix_vente=?,no_utilisateur=?,no_categorie=? where no_article=?";
 
-    JdbcTemplate jdbcTemplate;
-    NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private RowMapper<ArticleVendu> articleVenduRowMapper;
 
-    public DaoArticleVenduImpl(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+    public DaoArticleVenduImpl(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate, RowMapper<ArticleVendu> articleVenduRowMapper) {
         this.jdbcTemplate = jdbcTemplate;
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+        this.articleVenduRowMapper = articleVenduRowMapper;
     }
 
     @Override
     public List<ArticleVendu> read() {
-        return jdbcTemplate.query(SELECT_ALL, BeanPropertyRowMapper.newInstance(ArticleVendu.class));
+        return jdbcTemplate.query(SELECT_ALL, articleVenduRowMapper);
+    }
+    @Override
+    public ArticleVendu read(int noArticle) {
+        return jdbcTemplate.queryForObject(SELECT_BY_ID, articleVenduRowMapper, noArticle);
     }
 
-    @Override
-    public ArticleVendu read(int id) {
-        return jdbcTemplate.queryForObject(SELECT_BY_ID, BeanPropertyRowMapper.newInstance(ArticleVendu.class), id);
-    }
+
+//    public ArticleVendu read(int id) {
+//        return jdbcTemplate.queryForObject(SELECT_BY_ID, BeanPropertyRowMapper.newInstance(ArticleVendu.class), id);
+//    }
 
     @Override
     public int create(ArticleVendu articleVendu) {

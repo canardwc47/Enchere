@@ -21,6 +21,11 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     @Override
+    public Utilisateur getUtilisateur(int no_utilisateur) {
+        return utilisateurDao.read(no_utilisateur);
+    }
+
+    @Override
     public List<Utilisateur> getAllUtilisateur() {
         return utilisateurDao.read();
     }

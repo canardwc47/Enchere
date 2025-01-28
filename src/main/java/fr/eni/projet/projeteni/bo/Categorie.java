@@ -41,4 +41,13 @@ public class Categorie {
     public void setArticleVendus(List<ArticleVendu> articleVendus) {
         this.articleVendus = articleVendus;
     }
+
+    @Override
+    public String toString() {
+        return "Categorie{" +
+                "noCategorie=" + noCategorie +
+                ", libelle='" + libelle + '\'' +
+                ", articleVendus=" + articleVendus +
+                '}';
+    }
 }
