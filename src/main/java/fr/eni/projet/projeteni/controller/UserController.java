@@ -20,21 +20,33 @@ public class UserController {
         this.utilisateurService = utilisateurService;
     }
 
-    @GetMapping("/view-creation-compte")
+    @GetMapping("/connexion")
+    public String login(Model model) {
+        model.addAttribute("login", new Utilisateur());
+        return "view-connexion";
+    }
+
+
+    @PostMapping("/connexion")
+    public String login(@ModelAttribute Utilisateur utilisateur, Model model) {
+        return "redirect:/view-connexion";
+    }
+
+    @GetMapping("/inscription")
     public String creerunChat(Model model) {
         model.addAttribute("creationCompte", new Utilisateur());
         return "view-creation-compte";
     }
 
 
-    @PostMapping("/view-creation-compte")
+    @PostMapping("/inscription")
     public String newChat(@ModelAttribute Utilisateur utilisateur) {
         utilisateurService.addUtilisateur(utilisateur);
         System.out.println(utilisateur);
         return "view-connexion";
     }
 
-    @GetMapping("/profil")
+    @GetMapping("/modif")
     public String profil(@RequestParam(name = "email") String email, Model model) {
         Utilisateur utilisateur = utilisateurService.getUtilisateur(email);
         if (utilisateur == null) {
@@ -46,7 +58,7 @@ public class UserController {
         return "view-profil";
     }
 
-    @PostMapping("/profil")
+    @PostMapping("/modif")
     public String mettreAJourProfil(@ModelAttribute Utilisateur utilisateur, Model model) {
         // Récupère l'utilisateur existant
         model.addAttribute("utilisateur", new Utilisateur());
