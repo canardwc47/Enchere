@@ -5873,3 +5873,46 @@ com.microsoft.sqlserver.jdbc.SQLServerException: Impossible d'insérer la valeur
 2025-01-28T13:41:03.348+01:00  INFO 3832 --- [ProjetENI] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
 2025-01-28T13:41:03.352+01:00  INFO 3832 --- [ProjetENI] [restartedMain] f.e.p.projeteni.ProjetEniApplication     : Started ProjetEniApplication in 0.323 seconds (process running for 314.066)
 2025-01-28T13:41:03.353+01:00  INFO 3832 --- [ProjetENI] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-01-28T14:08:33.060+01:00  INFO 4692 --- [ProjetENI] [restartedMain] f.e.p.projeteni.ProjetEniApplication     : Starting ProjetEniApplication using Java 17.0.14 with PID 4692 (D:\Lucile\projetENIJavaSpringBoot\build\classes\java\main started by lfonlupt2024 in D:\Lucile\projetENIJavaSpringBoot)
+2025-01-28T14:08:33.061+01:00  INFO 4692 --- [ProjetENI] [restartedMain] f.e.p.projeteni.ProjetEniApplication     : No active profile set, falling back to 1 default profile: "default"
+2025-01-28T14:08:33.092+01:00  INFO 4692 --- [ProjetENI] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-01-28T14:08:33.093+01:00  INFO 4692 --- [ProjetENI] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-01-28T14:08:33.864+01:00  INFO 4692 --- [ProjetENI] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-01-28T14:08:33.874+01:00  INFO 4692 --- [ProjetENI] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-01-28T14:08:33.875+01:00  INFO 4692 --- [ProjetENI] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-01-28T14:08:33.907+01:00  INFO 4692 --- [ProjetENI] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-01-28T14:08:33.908+01:00  INFO 4692 --- [ProjetENI] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 815 ms
+2025-01-28T14:08:34.280+01:00  INFO 4692 --- [ProjetENI] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-01-28T14:08:34.304+01:00  INFO 4692 --- [ProjetENI] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-01-28T14:08:34.312+01:00  INFO 4692 --- [ProjetENI] [restartedMain] f.e.p.projeteni.ProjetEniApplication     : Started ProjetEniApplication in 1.596 seconds (process running for 1.983)
+2025-01-28T14:08:55.903+01:00  INFO 4692 --- [ProjetENI] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-01-28T14:08:55.903+01:00  INFO 4692 --- [ProjetENI] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-01-28T14:08:55.904+01:00  INFO 4692 --- [ProjetENI] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-01-28T14:08:55.937+01:00 DEBUG 4692 --- [ProjetENI] [http-nio-8080-exec-1] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL query
+2025-01-28T14:08:55.937+01:00 DEBUG 4692 --- [ProjetENI] [http-nio-8080-exec-1] o.s.jdbc.core.JdbcTemplate               : Executing prepared SQL statement [select * from UTILISATEURS where email=?]
+2025-01-28T14:08:55.939+01:00  INFO 4692 --- [ProjetENI] [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-01-28T14:08:56.132+01:00  INFO 4692 --- [ProjetENI] [http-nio-8080-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection ConnectionID:1 ClientConnectionId: bc4295a6-633a-4a6b-8aed-0549f6a3c752
+2025-01-28T14:08:56.133+01:00  INFO 4692 --- [ProjetENI] [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-01-28T14:08:56.152+01:00 TRACE 4692 --- [ProjetENI] [http-nio-8080-exec-1] o.s.jdbc.core.StatementCreatorUtils      : Setting SQL statement parameter value: column index 1, parameter value [jean.dupont@email.com], value class [java.lang.String], SQL type unknown
+2025-01-28T14:08:56.163+01:00 DEBUG 4692 --- [ProjetENI] [http-nio-8080-exec-1] o.s.jdbc.core.BeanPropertyRowMapper      : Mapping column 'no_utilisateur' to property 'noUtilisateur' of type 'int'
+2025-01-28T14:08:56.163+01:00 DEBUG 4692 --- [ProjetENI] [http-nio-8080-exec-1] o.s.jdbc.core.BeanPropertyRowMapper      : Mapping column 'pseudo' to property 'pseudo' of type 'java.lang.String'
+2025-01-28T14:08:56.163+01:00 DEBUG 4692 --- [ProjetENI] [http-nio-8080-exec-1] o.s.jdbc.core.BeanPropertyRowMapper      : Mapping column 'nom' to property 'nom' of type 'java.lang.String'
+2025-01-28T14:08:56.164+01:00 DEBUG 4692 --- [ProjetENI] [http-nio-8080-exec-1] o.s.jdbc.core.BeanPropertyRowMapper      : Mapping column 'prenom' to property 'prenom' of type 'java.lang.String'
+2025-01-28T14:08:56.164+01:00 DEBUG 4692 --- [ProjetENI] [http-nio-8080-exec-1] o.s.jdbc.core.BeanPropertyRowMapper      : Mapping column 'email' to property 'email' of type 'java.lang.String'
+2025-01-28T14:08:56.164+01:00 DEBUG 4692 --- [ProjetENI] [http-nio-8080-exec-1] o.s.jdbc.core.BeanPropertyRowMapper      : Mapping column 'telephone' to property 'telephone' of type 'java.lang.String'
+2025-01-28T14:08:56.164+01:00 DEBUG 4692 --- [ProjetENI] [http-nio-8080-exec-1] o.s.jdbc.core.BeanPropertyRowMapper      : Mapping column 'rue' to property 'rue' of type 'java.lang.String'
+2025-01-28T14:08:56.164+01:00 DEBUG 4692 --- [ProjetENI] [http-nio-8080-exec-1] o.s.jdbc.core.BeanPropertyRowMapper      : Mapping column 'code_postal' to property 'codePostal' of type 'int'
+2025-01-28T14:08:56.164+01:00 DEBUG 4692 --- [ProjetENI] [http-nio-8080-exec-1] o.s.jdbc.core.BeanPropertyRowMapper      : Mapping column 'ville' to property 'ville' of type 'java.lang.String'
+2025-01-28T14:08:56.164+01:00 DEBUG 4692 --- [ProjetENI] [http-nio-8080-exec-1] o.s.jdbc.core.BeanPropertyRowMapper      : Mapping column 'mot_de_passe' to property 'motDePasse' of type 'java.lang.String'
+2025-01-28T14:08:56.165+01:00 DEBUG 4692 --- [ProjetENI] [http-nio-8080-exec-1] o.s.jdbc.core.BeanPropertyRowMapper      : Mapping column 'credit' to property 'credit' of type 'int'
+2025-01-28T14:08:59.810+01:00 DEBUG 4692 --- [ProjetENI] [http-nio-8080-exec-3] o.s.jdbc.core.JdbcTemplate               : Executing SQL query [select * from ARTICLES_VENDUS]
+2025-01-28T14:08:59.812+01:00 DEBUG 4692 --- [ProjetENI] [http-nio-8080-exec-3] o.s.jdbc.core.BeanPropertyRowMapper      : Mapping column 'no_article' to property 'noArticle' of type 'int'
+2025-01-28T14:08:59.813+01:00 DEBUG 4692 --- [ProjetENI] [http-nio-8080-exec-3] o.s.jdbc.core.BeanPropertyRowMapper      : Mapping column 'nom_article' to property 'nomArticle' of type 'java.lang.String'
+2025-01-28T14:08:59.813+01:00 DEBUG 4692 --- [ProjetENI] [http-nio-8080-exec-3] o.s.jdbc.core.BeanPropertyRowMapper      : Mapping column 'description' to property 'description' of type 'java.lang.String'
+2025-01-28T14:08:59.815+01:00 DEBUG 4692 --- [ProjetENI] [http-nio-8080-exec-3] o.s.jdbc.core.BeanPropertyRowMapper      : Mapping column 'date_debut_encheres' to property 'dateDebutEncheres' of type 'java.time.LocalDate'
+2025-01-28T14:08:59.816+01:00 DEBUG 4692 --- [ProjetENI] [http-nio-8080-exec-3] o.s.jdbc.core.BeanPropertyRowMapper      : Mapping column 'date_fin_encheres' to property 'dateFinEncheres' of type 'java.time.LocalDate'
+2025-01-28T14:08:59.816+01:00 DEBUG 4692 --- [ProjetENI] [http-nio-8080-exec-3] o.s.jdbc.core.BeanPropertyRowMapper      : Mapping column 'prix_vente' to property 'prixVente' of type 'int'
+2025-01-28T14:37:11.429+01:00  INFO 4692 --- [ProjetENI] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-01-28T14:37:11.486+01:00  INFO 4692 --- [ProjetENI] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-01-28T14:37:11.491+01:00  INFO 4692 --- [ProjetENI] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-01-28T14:37:11.493+01:00  INFO 4692 --- [ProjetENI] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

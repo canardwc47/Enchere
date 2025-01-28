@@ -32,6 +32,7 @@ public class UserController {
         utilisateurService.addUtilisateur(utilisateur);
         System.out.println(utilisateur);
         return "view-connexion";
+    }
 
     @GetMapping("/profil")
     public String profil(@RequestParam(name = "email") String email, Model model) {

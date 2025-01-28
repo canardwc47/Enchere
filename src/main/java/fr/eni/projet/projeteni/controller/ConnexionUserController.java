@@ -28,12 +28,6 @@ public class ConnexionUserController {
 
     @PostMapping("/view-connexion")
     public String login(@ModelAttribute Utilisateur utilisateur, Model model) {
-        Utilisateur authenticated= utilisateurService.loginUtilisateur(utilisateur.getEmail(),utilisateur.getMotDePasse());
-        if (authenticated != null) {
-            model.addAttribute("email", authenticated.getEmail());
-            return "view-profil";
-        }else {
-            return "view-accueil";
-        }
+        return "redirect:/view-connexion";
     }
 }
