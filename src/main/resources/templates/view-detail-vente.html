@@ -1,10 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
+<html xmlns:th="http://www.thymeleaf.org" data-th-replace="~{layout::layout(title=~{::title},content=~{::main})}">
+<title>ENI-Enchères</title>
+<main class="container">
+    <div class="product-image">
+        <img src="path_to_your_image.jpg" alt="Product Image">
+    </div>
+    <div class="product-details">
+        <h2>Détail vente</h2>
+        <h3 data-th-if="${enchere!=null}" data-th-text="${enchere.articleVendu.nomArticle}"></h3>
+        <p><strong>Description :</strong><strong data-th-if="${enchere!=null}" data-th-text="${enchere.articleVendu.description}"></strong></p>
+        <p><strong>Catégorie :</strong><strong data-th-if="${enchere!=null}" data-th-text="${enchere.articleVendu.categorie}"></strong></p>
+        <p><strong>Meilleure offre :</strong> <strong data-th-if="${enchere!=null}" data-th-text="${enchere.montant_enchere}"></strong></p>
+        <p><strong>Mise à prix :</strong> <strong data-th-if="${enchere!=null}" data-th-text="${enchere.articleVendu.miseAPrix}"></strong></p>
+        <p><strong>Fin de l'enchère :</strong> <strong data-th-if="${enchere!=null}" data-th-text="${enchere.articleVendu.dateFinEncheres}"></strong></p>
+        <p><strong>Retrait :</strong> <strong data-th-if="${enchere!=null}" data-th-text="${enchere.articleVendu.lieuRetrait}"></strong></p>
+        <p><strong>Vendeur :</strong> <strong data-th-if="${enchere!=null}" data-th-text="${enchere.articleVendu.vendeur.pseudo}"></strong></p>
+        <div class="bid">
+            <label for="bid">Ma proposition :</label>
+            <input type="number" id="bid" name="bid" value="220">
+            <button type="button">Enchérir</button>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</main>
 </html>
