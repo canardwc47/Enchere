@@ -27,8 +27,8 @@ public class ArticleVenduRowMapper implements RowMapper<ArticleVendu> {
         int refCategorie = (rs.getInt("no_categorie"));
         articleVendu.setNoArticle(rs.getInt("no_article"));
         articleVendu.setDescription(rs.getString("description"));
-        articleVendu.setDateDebutEncheres(rs.getTimestamp("date_debut_enchere").toLocalDateTime().toLocalDate());
-        articleVendu.setDateFinEncheres(rs.getTimestamp("date_fin_enchere").toLocalDateTime().toLocalDate());
+        articleVendu.setDateDebutEncheres(rs.getTimestamp("date_debut_encheres").toLocalDateTime().toLocalDate());
+        articleVendu.setDateFinEncheres(rs.getTimestamp("date_fin_encheres").toLocalDateTime().toLocalDate());
         articleVendu.setMiseAPrix(rs.getInt("prix_initial"));
         articleVendu.setPrixVente(rs.getInt("prix_vente"));
         articleVendu.setAcheteur(utilisateurService.getUtilisateur(refAcheteur));
