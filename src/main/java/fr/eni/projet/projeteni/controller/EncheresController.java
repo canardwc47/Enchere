@@ -37,4 +37,6 @@ public class EncheresController {
         model.addAttribute("articles", articles);
         return "view-encheres";
     }
+
+
 }
