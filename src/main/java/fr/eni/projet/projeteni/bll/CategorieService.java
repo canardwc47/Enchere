@@ -12,6 +12,8 @@ public interface CategorieService {
     List<Categorie> getCategories();
     Categorie getCategorieById (int id);
 
+    Categorie getCategorieByName(String libelle);
+
     void update (Categorie categorie);
 
 }

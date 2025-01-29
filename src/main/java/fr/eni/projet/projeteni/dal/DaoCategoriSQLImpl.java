@@ -15,6 +15,7 @@ public class DaoCategoriSQLImpl implements DaoCategories {
 
     static final String SELECT_ALL = "select * from CATEGORIES";
     static final String SELECT_BY_ID = "select * from CATEGORIES where no_categorie=?";
+    static final String SELECT_BY_LIBELLE = "select * from CATEGORIES where libelle=?";
     static final String INSERT = "INSERT  INTO CATEGORIES ([libelle]) VALUES (:libelle)";
     static final String DELETE = "DELETE FROM CATEGORIES where no_categorie=?";
     static final String UPDATE = "UPDATE CATEGORIES set libelle=? where no_categorie=?";
@@ -35,6 +36,11 @@ public class DaoCategoriSQLImpl implements DaoCategories {
     @Override
     public Categorie read(int noCategorie) {
         return jdbcTemplate.queryForObject(SELECT_BY_ID, BeanPropertyRowMapper.newInstance(Categorie.class),noCategorie);
+    }
+
+    @Override
+    public Categorie read(String libelle) {
+        return jdbcTemplate.queryForObject(SELECT_BY_ID, BeanPropertyRowMapper.newInstance(Categorie.class),libelle);
     }
 
 //    @Override

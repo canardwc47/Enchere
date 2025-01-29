@@ -7,6 +7,9 @@ import java.util.List;
 public interface DaoCategories {
     List<Categorie> read();
     Categorie read(int noCategorie);
+
+    Categorie read(String libelle);
+
     int create(Categorie categorie);
     void update(Categorie categorie);
     void delete(Categorie categorie);
