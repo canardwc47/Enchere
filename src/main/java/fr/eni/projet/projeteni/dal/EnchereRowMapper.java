@@ -28,8 +28,6 @@ public class EnchereRowMapper implements RowMapper<Enchere> {
         enchere.setDateEnchere(rs.getTimestamp("date_enchere").toLocalDateTime().toLocalDate());
         enchere.setMontant_enchere(rs.getInt("montant_enchere"));
 
-
-
         Utilisateur user = new Utilisateur();
         user.setPseudo(rs.getString("pseudo"));
         user.setNom(rs.getString("nom"));
@@ -58,7 +56,6 @@ public class EnchereRowMapper implements RowMapper<Enchere> {
         article.setCategorie(categorie);
         article.setLieuRetrait(retrait);
         article.setVendeur(utilisateurService.getUtilisateur(rs.getInt("no_utilisateur")));
-
 
         enchere.setArticleVendu(article);
         enchere.setLastBidder(user);

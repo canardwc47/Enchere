@@ -23,6 +23,11 @@ public class UserController {
     }
 
 
+    @ModelAttribute("activeUser")
+    public Utilisateur getActiveUser() {
+        return new Utilisateur();
+    }
+
 //WORKS
     @GetMapping("/connexion")
     public String login(Model model) {
@@ -32,12 +37,31 @@ public class UserController {
 
 //DOSENT WORK
     @PostMapping("/connexion")
-    public String login(@ModelAttribute("activeUser") Utilisateur activeUer,@ModelAttribute Utilisateur utilisateur, Model model) {
-        if (activeUer.getEmail().equals(utilisateur.getEmail()) && activeUer.getMotDePasse().equals(utilisateur.getMotDePasse())) {
-            activeUer = utilisateur;
+    public String login(@RequestParam(name = "email") String email,@RequestParam(name = "password") String mdp,@ModelAttribute("activeUser") Utilisateur activeUer, Model model) {
+        if (utilisateurService.getUtilisateur(email) != null && utilisateurService.getUtilisateur(email).getMotDePasse().equals(mdp)) {
+            Utilisateur user = utilisateurService.getUtilisateur(email);
+            if (user != null) {
+                activeUer.setEmail(email);
+                activeUer.setPrenom((user.getPrenom()));
+                activeUer.setNom(user.getNom());
+                activeUer.setTelephone(user.getTelephone());
+                activeUer.setRue(user.getRue());
+                activeUer.setCodePostal(user.getCodePostal());
+                activeUer.setVille(user.getVille());
+                activeUer.setPseudo(user.getPseudo());
+                activeUer.setMotDePasse(mdp);
+            }else {
+                activeUer.setEmail(null);
+                activeUer.setPrenom(null);
+                activeUer.setNom(null);
+                activeUer.setTelephone(null);
+                activeUer.setRue(null);
+                activeUer.setCodePostal(10000);
+                activeUer.setVille(null);
+                activeUer.setPseudo(null);
+            }
         }
-
-        return "redirect:/view-connexion";
+        return "redirect:/encheres/profil";
     }
 
 //WORKS
@@ -52,7 +76,6 @@ public class UserController {
     @PostMapping("/inscription")
     public String newChat(@ModelAttribute("activeUser") Utilisateur activeUer,@ModelAttribute Utilisateur utilisateur) {
         utilisateurService.addUtilisateur(utilisateur);
-        System.out.println(utilisateur);
         activeUer = utilisateur;
 
         return "redirect:/encheres";
@@ -61,14 +84,13 @@ public class UserController {
 
 //WORKS
     @GetMapping("/profil")
-    public String profil(@RequestParam(name = "email") String email, Model model) {
-        Utilisateur utilisateur = utilisateurService.getUtilisateur(email);
-        if (utilisateur == null) {
+    public String profil(@ModelAttribute("activeUser") Utilisateur userActif, Model model) {
+
+        if (userActif == null) {
             // Rediriger ou afficher un message si l'utilisateur n'existe pas
-            model.addAttribute("error", "Utilisateur introuvable pour l'email : " + email);
-            return "error"; // Assure-toi d'avoir une page "error.html"
+            System.out.println("error " + "Utilisateur déconnecté");
+            return "redirect:/"; // Assure-toi d'avoir une page "error.html"
         }
-        model.addAttribute("utilisateur", utilisateur);
         return "view-profil";
     }
 
