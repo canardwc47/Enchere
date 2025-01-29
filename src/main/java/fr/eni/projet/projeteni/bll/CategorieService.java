@@ -4,13 +4,13 @@ import fr.eni.projet.projeteni.bo.Categorie;
 
 import java.util.List;
 
-public interface CategoriService {
+public interface CategorieService {
     void addCategories(Categorie categori);
 
     void removeCategories(int id);
 
     List<Categorie> getCategories();
-    Categorie getNoCategorie (int id);
+    Categorie getCategorieById (int id);
 
     void update (Categorie categorie);
 

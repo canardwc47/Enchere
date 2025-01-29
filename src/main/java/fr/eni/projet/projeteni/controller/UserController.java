@@ -53,7 +53,7 @@ public class UserController {
 
 
 //WORKS
-    @GetMapping("/modif")
+    @GetMapping("/profil")
     public String profil(@RequestParam(name = "email") String email, Model model) {
         Utilisateur utilisateur = utilisateurService.getUtilisateur(email);
         if (utilisateur == null) {
@@ -66,9 +66,8 @@ public class UserController {
     }
 
 
-
 //WORKS
-    @PostMapping("/modif")
+    @PostMapping("/profil")
     public String mettreAJourProfil(@ModelAttribute Utilisateur utilisateur, Model model) {
         // Récupère l'utilisateur existant
         model.addAttribute("utilisateur", new Utilisateur());

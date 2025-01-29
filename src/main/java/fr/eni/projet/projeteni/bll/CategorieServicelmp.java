@@ -2,17 +2,15 @@ package fr.eni.projet.projeteni.bll;
 
 import fr.eni.projet.projeteni.bo.Categorie;
 import fr.eni.projet.projeteni.dal.DaoCategories;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-public class CategoriServicelmp implements CategoriService {
+public class CategorieServicelmp implements CategorieService {
     private DaoCategories daoCategories;
 
-    public CategoriServicelmp(DaoCategories daoCategories) {
+    public CategorieServicelmp(DaoCategories daoCategories) {
         this.daoCategories = daoCategories;
     }
 
@@ -32,7 +30,7 @@ public class CategoriServicelmp implements CategoriService {
     }
 
     @Override
-    public Categorie getNoCategorie(int id) {
+    public Categorie getCategorieById(int id) {
         return daoCategories.read(id) ;
     }
 
