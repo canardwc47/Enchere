@@ -6,61 +6,161 @@
 
     <main>
 
-        <h1 class="profile">Mon Profil</h1>
 
-        <form action="/encheres/inscription" method="POST" th:object="${creationCompte}" class="from-creation-compte" >
-            <div class="container1">
-                <div class="pseaudo">
-                    <lable for="pseaudo">pseaudo :</lable>
-                    <input type="text" id="pseaudo" name="pseaudo" required  data-th-field="*{pseudo}" minlength="4" maxlength="20" placeholder="Pseudo"/>
-                </div>
-                <div class="prenom">
-                    <label for="prenom">prenom :</label>
-                    <input type="text" id="prenom" name="prenom" required  data-th-field="*{prenom}" minlength="4" maxlength="20" placeholder="Prenom"/>
-                </div>
-                <div class="telephone">
-                    <label for="telephone">Teléphone :</label>
-                    <input type="tel" id="telephone" name="telephone" required  data-th-field="*{telephone}" minlength="4" maxlength="20" placeholder="Numéro de téléphone"/>
-                </div>
-                <div class="code_postal">
-                    <label for="code_postal">Code Postal :</label>
-                    <input type="text" id="code_postal" name="code_postal" required data-th-field="*{codePostal}" minlength="5" maxlength="5" placeholder="Code postal"/>
-                </div>
-                <div class="mode_passe">
-                    <label for="mode_passe">Mode Passe :</label>
-                    <input type="password" id="mode_passe" name="mode_passe" required data-th-field="*{motDePasse}" minlength="4" maxlength="10" placeholder="Mot de passe"/>
-                </div>
-            </div>
-            <div class="container2">
-                <div class="nom">
-                    <label for="nom">Nom : </label>
-                    <input type="text" id="nom" name="nom" required  data-th-field="*{nom}" minlength="4" maxlength="20" placeholder="Nom" />
-                </div>
-                <div class="Email">
-                    <label for="email">Email : </label>
-                    <input type="email" id="email" name="email" required  data-th-field="*{email}" placeholder="Email" />
-                </div>
-                <div class="rue">
-                    <label for="rue">Rue :</label>
-                    <input type="text" id="rue" name="rue" required  data-th-field="*{rue}" minlength="4" maxlength="20" placeholder="Rue"/>
-                </div>
-                <div class="ville">
-                    <label for="ville">Ville :</label>
-                    <input type="text" id="ville" name="ville" required  data-th-field="*{ville}" minlength="4" maxlength="20" placeholder="Ville"/>
-                </div>
-                <div class="confirmation">
-                    <label for="confirmation">Confirmation :</label>
-                    <input type="password" id="confirmation" name="confirmation" required  data-th-field="*{motDePasse}" minlength="4" maxlength="20" placeholder="Confirmation"/>
-                </div>
-            </div>
+<!--        <form action="/encheres/inscription" method="POST" th:object="${creationCompte}" class="from-creation-compte" >-->
+<!--            <div class="container1">-->
+<!--                <div class="pseaudo">-->
+<!--                    <lable for="pseaudo">pseaudo :</lable>-->
+<!--                    <input type="text" id="pseaudo" name="pseaudo" required  data-th-field="*{pseudo}" minlength="4" maxlength="20" placeholder="Pseudo"/>-->
+<!--                </div>-->
+<!--                <div class="prenom">-->
+<!--                    <label for="prenom">prenom :</label>-->
+<!--                    <input type="text" id="prenom" name="prenom" required  data-th-field="*{prenom}" minlength="4" maxlength="20" placeholder="Prenom"/>-->
+<!--                </div>-->
+<!--                <div class="telephone">-->
+<!--                    <label for="telephone">Teléphone :</label>-->
+<!--                    <input type="tel" id="telephone" name="telephone" required  data-th-field="*{telephone}" minlength="4" maxlength="20" placeholder="Numéro de téléphone"/>-->
+<!--                </div>-->
+<!--                <div class="code_postal">-->
+<!--                    <label for="code_postal">Code Postal :</label>-->
+<!--                    <input type="text" id="code_postal" name="code_postal" required data-th-field="*{codePostal}" minlength="5" maxlength="5" placeholder="Code postal"/>-->
+<!--                </div>-->
+<!--                <div class="mode_passe">-->
+<!--                    <label for="mode_passe">Mode Passe :</label>-->
+<!--                    <input type="password" id="mode_passe" name="mode_passe" required data-th-field="*{motDePasse}" minlength="4" maxlength="10" placeholder="Mot de passe"/>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="container2">-->
+<!--                <div class="nom">-->
+<!--                    <label for="nom">Nom : </label>-->
+<!--                    <input type="text" id="nom" name="nom" required  data-th-field="*{nom}" minlength="4" maxlength="20" placeholder="Nom" />-->
+<!--                </div>-->
+<!--                <div class="Email">-->
+<!--                    <label for="email">Email : </label>-->
+<!--                    <input type="email" id="email" name="email" required  data-th-field="*{email}" placeholder="Email" />-->
+<!--                </div>-->
+<!--                <div class="rue">-->
+<!--                    <label for="rue">Rue :</label>-->
+<!--                    <input type="text" id="rue" name="rue" required  data-th-field="*{rue}" minlength="4" maxlength="20" placeholder="Rue"/>-->
+<!--                </div>-->
+<!--                <div class="ville">-->
+<!--                    <label for="ville">Ville :</label>-->
+<!--                    <input type="text" id="ville" name="ville" required  data-th-field="*{ville}" minlength="4" maxlength="20" placeholder="Ville"/>-->
+<!--                </div>-->
+<!--                <div class="confirmation">-->
+<!--                    <label for="confirmation">Confirmation :</label>-->
+<!--                    <input type="password" id="confirmation" name="confirmation" required  data-th-field="*{motDePasse}" minlength="4" maxlength="20" placeholder="Confirmation"/>-->
+<!--                </div>-->
+<!--            </div>-->
 
-            <div class="batton">
-                <div class="cree">
-                    <button type="submit">Créer</button>
-                    <button type="reset">Annuler</button>
+<!--            <div class="batton">-->
+<!--                <div class="cree">-->
+<!--                    <button type="submit">Créer</button>-->
+<!--                    <button type="reset">Annuler</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </form>-->
+        <section class="h-100 h-custom gradient-custom-2">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12">
+                        <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                            <div class="card-body p-0">
+                                <div class="row g-0">
+                                    <div class="col-lg-6">
+                                        <div class="p-5">
+                                            <h3 class="fw-normal mb-5" style="color: #00353F;">Veuillez rentrer vos informations</h3>
+
+                                            <div class="row">
+                                                <div class="mb-4 pb-2">
+                                                    <div data-mdb-input-init class="form-outline">
+                                                        <input type="text" id="pseudo" class="form-control form-control-lg" />
+                                                        <label class="form-label" for="pseudo">Pseudo</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 mb-4 pb-2">
+                                                    <div data-mdb-input-init class="form-outline">
+                                                        <input type="text" id="prenom" class="form-control form-control-lg" />
+                                                        <label class="form-label" for="prenom">Prénom</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 mb-4 pb-2">
+                                                    <div data-mdb-input-init class="form-outline">
+                                                        <input type="text" id="nom" class="form-control form-control-lg" />
+                                                        <label class="form-label" for="nom">Nom</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+
+
+
+                                                <div class="mb-4 pb-2">
+                                                    <div data-mdb-input-init class="form-outline">
+                                                        <input type="text" id="mdp" class="form-control form-control-lg" />
+                                                        <label class="form-label" for="mdp">Mot de passe</label>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-4 pb-2">
+                                                    <div data-mdb-input-init class="form-outline">
+                                                        <input type="text" id="mdpVerif" class="form-control form-control-lg" />
+                                                        <label class="form-label" for="mdpVerif">Confirmez votre mot de passe</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- C'est ici qu'on modifie la disposition des "Contact Details" -->
+                                    <div class="col-lg-6 text-white" style="background-color: #00353F; border-radius: 15px">
+                                        <div class="p-5">
+                                            <h3 class="fw-normal mb-5">Votre adresse</h3>
+
+                                            <!-- Chaque champ de Contact Details est déplacé à gauche en utilisant 'col-md-12' -->
+                                            <div class="mb-4 pb-2">
+                                                <div data-mdb-input-init class="form-outline form-white">
+                                                    <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
+                                                    <label class="form-label" for="form3Examplea2">Numéro de rue</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-5 mb-4 pb-2">
+                                                    <div data-mdb-input-init class="form-outline form-white">
+                                                        <input type="text" id="form3Examplea4" class="form-control form-control-lg" />
+                                                        <label class="form-label" for="form3Examplea4">Code Postal</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-7 mb-4 pb-2">
+                                                    <div data-mdb-input-init class="form-outline form-white">
+                                                        <input type="text" id="form3Examplea5" class="form-control form-control-lg" />
+                                                        <label class="form-label" for="form3Examplea5">Ville</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-7 mb-4 pb-2">
+                                                    <div data-mdb-input-init class="form-outline form-white">
+                                                        <input type="text" id="form3Examplea8" class="form-control form-control-lg" />
+                                                        <label class="form-label" for="form3Examplea8">Téléphone</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Centrage du bouton -->
+                                            <div class="d-flex justify-content-center">
+                                                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-light btn-lg" data-mdb-ripple-color="dark">Inscription</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </form>
+        </section>
+
     </main>
 
 </html>
