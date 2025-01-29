@@ -1,8 +1,6 @@
 package fr.eni.projet.projeteni.dal;
 
 import fr.eni.projet.projeteni.bo.ArticleVendu;
-import fr.eni.projet.projeteni.bo.Enchere;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -13,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class DaoArticleVenduImpl implements DaoArticleVendu {
+public class DaoArticleVenduSQLImpl implements DaoArticleVendu {
 
     static final String SELECT_ALL = "select * from ARTICLES_VENDUS";
     static final String SELECT_BY_ID = "select * from ARTICLES_VENDUS where no_article=?";
@@ -25,7 +23,7 @@ public class DaoArticleVenduImpl implements DaoArticleVendu {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     private RowMapper<ArticleVendu> articleVenduRowMapper;
 
-    public DaoArticleVenduImpl(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate, RowMapper<ArticleVendu> articleVenduRowMapper) {
+    public DaoArticleVenduSQLImpl(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate, RowMapper<ArticleVendu> articleVenduRowMapper) {
         this.jdbcTemplate = jdbcTemplate;
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
         this.articleVenduRowMapper = articleVenduRowMapper;

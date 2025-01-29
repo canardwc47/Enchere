@@ -1,6 +1,6 @@
 package fr.eni.projet.projeteni.dal;
 
-import fr.eni.projet.projeteni.bll.CategoriService;
+import fr.eni.projet.projeteni.bll.CategorieService;
 import fr.eni.projet.projeteni.bll.UtilisateurService;
 import fr.eni.projet.projeteni.bo.ArticleVendu;
 import org.springframework.jdbc.core.RowMapper;
@@ -13,11 +13,11 @@ import java.sql.SQLException;
 public class ArticleVenduRowMapper implements RowMapper<ArticleVendu> {
 
     private UtilisateurService utilisateurService;
-    private CategoriService categoriService;
+    private CategorieService categorieService;
 
-    public ArticleVenduRowMapper(UtilisateurService utilisateurService, CategoriService categoriService) {
+    public ArticleVenduRowMapper(UtilisateurService utilisateurService, CategorieService categorieService) {
         this.utilisateurService = utilisateurService;
-        this.categoriService = categoriService;
+        this.categorieService = categorieService;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class ArticleVenduRowMapper implements RowMapper<ArticleVendu> {
         articleVendu.setMiseAPrix(rs.getInt("prix_initial"));
         articleVendu.setPrixVente(rs.getInt("prix_vente"));
         articleVendu.setAcheteur(utilisateurService.getUtilisateur(refAcheteur));
-        articleVendu.setCategorie(categoriService.getNoCategorie(refCategorie));
+        articleVendu.setCategorie(categorieService.getCategorieById(refCategorie));
         return articleVendu;
     }
 }
