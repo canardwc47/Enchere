@@ -35,6 +35,12 @@ public class CategorieServicelmp implements CategorieService {
     }
 
     @Override
+    public Categorie getCategorieByName(String libelle) {
+        return daoCategories.read(libelle) ;
+    }
+
+
+    @Override
     public void update(Categorie categorie) {
         daoCategories.update(categorie);
     }
