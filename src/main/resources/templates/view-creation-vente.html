@@ -1,8 +1,11 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<html data-th-replace="~{layout::layout(title=~{::title},content=~{::main})}">
+
+
+
+
+
+
     <title>Nouvelle Vente - ENI-Enchères</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -19,7 +22,8 @@
             font-weight: bold;
         }
     </style>
-</head>
+
+
 <body>
 
 <div class="container mt-5 container-custom">
