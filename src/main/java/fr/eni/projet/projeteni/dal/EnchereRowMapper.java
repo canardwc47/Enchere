@@ -1,10 +1,9 @@
 package fr.eni.projet.projeteni.dal;
 
 import fr.eni.projet.projeteni.bll.ArticleVenduService;
-import fr.eni.projet.projeteni.bll.CategoriService;
+import fr.eni.projet.projeteni.bll.CategorieService;
 import fr.eni.projet.projeteni.bll.UtilisateurService;
 import fr.eni.projet.projeteni.bo.Enchere;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +15,7 @@ public class EnchereRowMapper implements RowMapper<Enchere> {
 
     private UtilisateurService utilisateurService;
     private ArticleVenduService articleVenduService;
-    private CategoriService categoriService;
+    private CategorieService categorieService;
 
     public EnchereRowMapper(UtilisateurService utilisateurService, ArticleVenduService articleVenduService) {
         this.utilisateurService = utilisateurService;
