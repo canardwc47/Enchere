@@ -18,19 +18,17 @@ public class DaoRetraitSQLImpl implements DaoRetrait {
     static final String SELECT_ALL = "select * from RETRAITS";
     static final String SELECT_BY_ID = "select * from RETRAITS where no_article = ?";
     static final String INSERT = "INSERT  INTO RETRAITS ([rue],[code_postal],[ville]) " +
-            "VALUES (:rue,:code_postal,:ville)";
+                                 "VALUES (:rue,:code_postal,:ville)";
     static final String DELETE = "DELETE FROM RETRAITS where no_article=?";
     static final String UPDATE = "UPDATE RETRAITS set rue=?,code_postal=?,ville=? where no_article=?";
 
 
     private JdbcTemplate jdbcTemplate;
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    private RowMapper<Retrait> rowMapper;
 
-    public DaoRetraitSQLImpl(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate, RowMapper<Retrait> rowMapper) {
+    public DaoRetraitSQLImpl(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
-        this.rowMapper = rowMapper;
     }
 //    @Override
 //    public Retrait read(int noArticle) {

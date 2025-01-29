@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@SessionAttributes("activeUser")
 @RequestMapping("/encheres")
 public class UserController {
 
@@ -31,7 +32,11 @@ public class UserController {
 
 //DOSENT WORK
     @PostMapping("/connexion")
-    public String login(@ModelAttribute Utilisateur utilisateur, Model model) {
+    public String login(@ModelAttribute("activeUser") Utilisateur activeUer,@ModelAttribute Utilisateur utilisateur, Model model) {
+        if (activeUer.getEmail().equals(utilisateur.getEmail()) && activeUer.getMotDePasse().equals(utilisateur.getMotDePasse())) {
+            activeUer = utilisateur;
+        }
+
         return "redirect:/view-connexion";
     }
 
@@ -45,9 +50,11 @@ public class UserController {
 
 //WORKS (STILL NEEDS PWD ENCRYPTION)
     @PostMapping("/inscription")
-    public String newChat(@ModelAttribute Utilisateur utilisateur) {
+    public String newChat(@ModelAttribute("activeUser") Utilisateur activeUer,@ModelAttribute Utilisateur utilisateur) {
         utilisateurService.addUtilisateur(utilisateur);
         System.out.println(utilisateur);
+        activeUer = utilisateur;
+
         return "redirect:/encheres";
     }
 
