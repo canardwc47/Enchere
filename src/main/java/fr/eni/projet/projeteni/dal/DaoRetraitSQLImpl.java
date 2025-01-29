@@ -25,12 +25,12 @@ public class DaoRetraitSQLImpl implements DaoRetrait {
 
     private JdbcTemplate jdbcTemplate;
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    private RowMapper<Retrait> rowMapper;
 
-    public DaoRetraitSQLImpl(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate, RowMapper<Retrait> rowMapper) {
+
+    public DaoRetraitSQLImpl(JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
-        this.rowMapper = rowMapper;
+
     }
 //    @Override
 //    public Retrait read(int noArticle) {
