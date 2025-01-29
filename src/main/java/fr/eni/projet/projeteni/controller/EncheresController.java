@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@SessionAttributes("activeUser")
 @RequestMapping("/encheres")
 public class EncheresController {
 
