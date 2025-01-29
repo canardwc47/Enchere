@@ -19,7 +19,42 @@ import java.util.List;
 public class DaoEncheresSQLImpl implements DaoEncheres {
 
     static final String SELECT_ALL = "select * from ENCHERES";
-    static final String SELECT_BY_ID = "select * from ENCHERES where no_article = ?";
+    static final String SELECT_BY_ID = "SELECT" +
+            "    e.no_utilisateur," +
+            "    e.no_article," +
+            "    e.date_enchere," +
+            "    e.montant_enchere," +
+            "    a.nom_article," +
+            "    a.description," +
+            "    a.date_debut_encheres," +
+            "    a.date_fin_encheres," +
+            "    a.prix_initial," +
+            "    a.prix_vente," +
+            "    u.pseudo," +
+            "    u.nom," +
+            "    u.prenom," +
+            "    u.email," +
+            "    u.telephone," +
+            "    u.rue AS utilisateur_rue," +
+            "    u.code_postal AS utilisateur_code_postal," +
+            "    u.ville AS utilisateur_ville," +
+            "    r.rue AS retrait_rue," +
+            "    r.code_postal AS retrait_code_postal," +
+            "    r.ville AS retrait_ville, " +
+            "    c.libelle AS categorie_libelle " +
+            "FROM " +
+            "    ENCHERES e " +
+            "JOIN " +
+            "    ARTICLES_VENDUS a ON e.no_article = a.no_article " +
+            "JOIN " +
+            "    UTILISATEURS u ON e.no_utilisateur = u.no_utilisateur " +
+            "LEFT JOIN " +
+            "    RETRAITS r ON a.no_article = r.no_article " +
+            "JOIN" +
+            "    CATEGORIES c ON a.no_categorie = c.no_categorie " +
+            "WHERE" +
+            "    e.no_article = ?";
+//            "select * from ENCHERES where no_article = ?";
     static final String INSERT = "INSERT  INTO ENCHERES ([no_utilisateur],[no_article],[date_enchere],[montant_enchere]) " +
             "VALUES (:no_utilisateur,:no_article,:date_enchere,:montant_enchere)";
     static final String DELETE = "DELETE FROM ENCHERES where no_article=?";
