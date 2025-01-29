@@ -57,10 +57,10 @@
                                 </div>
 
                                 <!-- Informations de l'utilisateur -->
-                                <h4 class="mb-2" data-th-text="${utilisateur.pseudo}">Pseudo</h4>
+                                <h4 class="mb-2" data-th-text="${activeUser.pseudo}">Pseudo</h4>
                                 <p class="text-muted mb-4">
-                                    <span data-th-text="${utilisateur.prenom}">Prénom</span>
-                                    <span data-th-text="${utilisateur.nom}">Nom</span>
+                                    <span data-th-text="${activeUser.prenom}">Prénom</span>
+                                    <span data-th-text="${activeUser.nom}">Nom</span>
                                 </p>
 
 
@@ -70,24 +70,24 @@
                                     <div class="row">
                                         <div class="col-12 mb-3">
                                             <input type="text" name="email" class="form-control" required
-                                                   data-th-value="${utilisateur.email}" placeholder="Email" />
+                                                   data-th-value="${activeUser.email}" placeholder="Email" />
                                         </div>
                                         <div class="col-12 mb-3">
 
                                             <input type="text" name="telephone" class="form-control" required
-                                                   data-th-value="${utilisateur.telephone}" placeholder="Téléphone" />
+                                                   data-th-value="${activeUser.telephone}" placeholder="Téléphone" />
                                         </div>
                                         <div class="col-12 mb-3">
                                             <input type="text" name="rue" class="form-control" required
-                                                   data-th-value="${utilisateur.rue}" placeholder="Rue" />
+                                                   data-th-value="${activeUser.rue}" placeholder="Rue" />
                                         </div>
                                         <div class="col-6 mb-3">
                                             <input type="text" name="codePostal" class="form-control" required
-                                                   data-th-value="${utilisateur.codePostal}" placeholder="Code Postal" />
+                                                   data-th-value="${activeUser.codePostal}" placeholder="Code Postal" />
                                         </div>
                                         <div class="col-6 mb-3">
                                             <input type="text" name="ville" class="form-control" required
-                                                   data-th-value="${utilisateur.ville}" placeholder="Ville" />
+                                                   data-th-value="${activeUser.ville}" placeholder="Ville" />
                                         </div>
                                     </div>
 
