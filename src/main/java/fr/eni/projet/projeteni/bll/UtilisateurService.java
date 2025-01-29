@@ -7,6 +7,8 @@ import java.util.List;
 public interface UtilisateurService {
     Utilisateur getUtilisateur(String email);
 
+    Utilisateur getUtilisateur(int no_utilisateur);
+
     List<Utilisateur> getAllUtilisateur();
 
 

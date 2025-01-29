@@ -22,10 +22,11 @@ public class EncheresController {
         this.enchereService = enchereService;
     }
 
-    //DOESNT WORK "MISSING DAO CODE"
+    //DOESNT WORK "MISSING VIEW CODE"
     @GetMapping("/detail")
     public String afficherEnchereDetail(@RequestParam(name = "id") int id , Model model) {
         model.addAttribute("enchere", enchereService.getEnchere(id));
+        System.out.println(enchereService.getEnchere(id));
         return "view-detail-vente";
     }
 
