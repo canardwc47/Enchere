@@ -55,8 +55,11 @@ public class DaoEncheresSQLImpl implements DaoEncheres {
             "WHERE" +
             "    e.no_article = ?";
 //            "select * from ENCHERES where no_article = ?";
-    static final String INSERT = "INSERT  INTO ENCHERES ([no_utilisateur],[no_article],[date_enchere],[montant_enchere]) " +
+    static final String INSERT_ENCHERE = "INSERT  INTO ENCHERES ([no_utilisateur],[no_article],[date_enchere],[montant_enchere]) " +
             "VALUES (:no_utilisateur,:no_article,:date_enchere,:montant_enchere)";
+    static final String INSERT_ARTICLE ="INSERT  INTO ARTICLES_VENDUS ([nom_article],[description],[date_debut_encheres],[date_fin_encheres],[prix_initial],[no_utilisateur],[no_categorie]) \" +\n" +
+            "            \"VALUES (:nom_article,:description,:date_debut_encheres,:date_fin_encheres,:prix_initial,:no_utilisateur,:no_categorie)";
+
     static final String DELETE = "DELETE FROM ENCHERES where no_article=?";
     static final String UPDATE = "UPDATE ENCHERES set no_enchere=?,no_article=?,date_enchere=?,montant_enchere=? where no_article=?";
 
@@ -89,13 +92,23 @@ public class DaoEncheresSQLImpl implements DaoEncheres {
     @Override
     public int create(Enchere enchere) {
         var namedparameters = new MapSqlParameterSource();
-        namedparameters.addValue("no_utilisateur", enchere.getArticleVendu().getVendeur().getNoUtilisateur());
-        namedparameters.addValue("no_article", enchere.getArticleVendu().getNoArticle());
-        namedparameters.addValue("date_enchere", enchere.getDateEnchere());
-        namedparameters.addValue("montant_enchere", enchere.getMontant_enchere());
+        namedparameters.addValue("nom_article", enchere.getArticleVendu().getNomArticle());
+        namedparameters.addValue("description", enchere.getArticleVendu().getDescription());
+        namedparameters.addValue("date_debut_encheres", enchere.getArticleVendu().getDateDebutEncheres());
+        namedparameters.addValue("date_fin_encheres", enchere.getArticleVendu().getDateFinEncheres());
+        namedparameters.addValue("prix_initial", enchere.getArticleVendu().getMiseAPrix());
+        namedparameters.addValue("no_utilisateur", enchere.getArticleVendu().getVendeur());
+        namedparameters.addValue("no_categorie", enchere.getArticleVendu().getCategorie().getNoCategorie());
         var keyHolder = new GeneratedKeyHolder();
-        namedParameterJdbcTemplate.update(INSERT, namedparameters, keyHolder);
-        return keyHolder.getKey().intValue();
+        namedParameterJdbcTemplate.update(INSERT_ARTICLE, namedparameters, keyHolder);
+        int noArticle = keyHolder.getKey().intValue();
+        var namedparameters1 = new MapSqlParameterSource();
+        namedparameters1.addValue("no_utilisateur", null);
+        namedparameters1.addValue("no_article", noArticle);
+        namedparameters1.addValue("date_enchere", enchere.getArticleVendu().getDateDebutEncheres());
+        namedparameters1.addValue("montant_enchere", 0);
+        namedParameterJdbcTemplate.update(INSERT_ENCHERE, namedparameters);
+        return noArticle;
     }
 
     @Override
