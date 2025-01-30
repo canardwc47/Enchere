@@ -66,7 +66,7 @@ public class UserController {
 
 //WORKS
     @GetMapping("/inscription")
-    public String creerunChat(Model model) {
+    public String creerunCompte(Model model) {
         model.addAttribute("creationCompte", new Utilisateur());
         return "view-creation-compte";
     }
@@ -74,7 +74,7 @@ public class UserController {
 
 //WORKS (STILL NEEDS PWD ENCRYPTION)
     @PostMapping("/inscription")
-    public String newChat(@ModelAttribute("activeUser") Utilisateur activeUer,@ModelAttribute Utilisateur utilisateur) {
+    public String newCompte(@ModelAttribute("activeUser") Utilisateur activeUer,@ModelAttribute Utilisateur utilisateur) {
         utilisateurService.addUtilisateur(utilisateur);
         activeUer = utilisateur;
 
