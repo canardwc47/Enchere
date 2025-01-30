@@ -48,57 +48,65 @@ public class EncheresController {
         model.addAttribute("articles", articles);
         return "view-encheres";
     }
-    //send a form to fill
+
+
+    // Get the form to fill
     @GetMapping("/cree")
     public String creeEnchere(Model model) {
-        var article = new ArticleVendu();
-        var enchere = new Enchere();
-        model.addAttribute("article", article);
-        return "view-creation-vente";
+        // Add categories to the model for the form
+        model.addAttribute("categories", categorieService.getCategories());
+        return "view-creation-vente";  // Your view name (HTML file)
     }
 
-
-
-
-
-    //post the filled form
+    // Post the filled form
     @PostMapping("/cree")
-    public String creeEnchere(@RequestParam (name = "nom") String nom,
-                              @ModelAttribute("activeUser") Utilisateur activeUser,
-                              @RequestParam (name = "description") String description,
-                              @RequestParam (name = "categorie") String categorie,
-                              @RequestParam (name = "prix") int prix,
-                              @RequestParam (name = "debut") LocalDate debut,
-                              @RequestParam (name = "fin") LocalDate fin,
-                              @RequestParam (name = "rue") String rue,
-                              @RequestParam (name = "code_postal") int code_postal,
-                              @RequestParam (name = "ville") String ville) {
+    public String creeEnchere(
+            @RequestParam(name = "nom") String nom,
+            @ModelAttribute("activeUser") Utilisateur activeUser,
+            @RequestParam(name = "description") String description,
+            @RequestParam(name = "categorie") String categorie,
+            @RequestParam(name = "prix") int prix,
+            @RequestParam(name = "debut") LocalDate debut,
+            @RequestParam(name = "fin") LocalDate fin,
+            @RequestParam(name = "rue") String rue,
+            @RequestParam(name = "code_postal") int code_postal,
+            @RequestParam(name = "ville") String ville) {
 
+        // Get the active user (the seller) from the session or context
         Utilisateur utilisateur = utilisateurService.getUtilisateur(activeUser.getEmail());
+        System.out.println(activeUser);
 
+        // Create and populate the Retrait object (location for withdrawal)
         Retrait retrait = new Retrait();
         retrait.setRue(rue);
         retrait.setCode_postal(code_postal);
         retrait.setVille(ville);
 
+        // Create and populate the ArticleVendu object (auction item)
         ArticleVendu articleVendu = new ArticleVendu();
-        articleVendu.setVendeur(utilisateur);
-        articleVendu.setNomArticle(nom);
-        articleVendu.setDescription(description);
-        articleVendu.setCategorie(categorieService.getCategorieByName(categorie));
-        articleVendu.setMiseAPrix(prix);
-        articleVendu.setDateDebutEncheres(debut);
-        articleVendu.setDateFinEncheres(fin);
-        articleVendu.setLieuRetrait(retrait);
+        articleVendu.setVendeur(utilisateur); // Set the seller
+        articleVendu.setNomArticle(nom); // Set the name of the auction item
+        articleVendu.setDescription(description); // Set the description
+        articleVendu.setCategorie(categorieService.getCategorieByName(categorie)); // Get category by name
+        articleVendu.setMiseAPrix(prix); // Set the starting price
+        articleVendu.setDateDebutEncheres(debut); // Set the start date
+        articleVendu.setDateFinEncheres(fin); // Set the end date
+        articleVendu.setLieuRetrait(retrait); // Set the withdrawal location
 
+        // Create and populate the Enchere object (auction itself)
         Enchere enchere = new Enchere();
-        enchere.setDateEnchere(debut);
-        enchere.setMontant_enchere(prix);
-        enchere.setArticleVendu(articleVendu);
+        enchere.setDateEnchere(debut); // Set the auction date
+        enchere.setMontant_enchere(prix); // Set the starting bid amount
+        enchere.setArticleVendu(articleVendu); // Set the article being auctioned
 
+        // Save the auction to the database
         enchereService.addEnchere(enchere);
 
+        // Redirect to a confirmation or list page after successful creation
         return "redirect:/encheres";
     }
-
 }
+
+
+
+
