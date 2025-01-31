@@ -147,5 +147,18 @@ public String modif(
 
 
 
+    @PostMapping("/supprimer")
+    public String supprimerCompte(@ModelAttribute("activeUser") Utilisateur userActif, SessionStatus sessionStatus) {
+        if (userActif != null && userActif.getEmail() != null) {
+            Utilisateur existingUser = utilisateurService.getUtilisateur(userActif.getEmail());
+            if (existingUser != null) {
+                utilisateurService.deleteUtilisateur(existingUser);
+            }
+        }
 
+        // Réinitialiser la session
+        sessionStatus.setComplete();
+
+        return "redirect:/encheres";
+    }
 }
