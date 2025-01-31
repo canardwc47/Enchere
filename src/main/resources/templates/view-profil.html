@@ -40,7 +40,8 @@
   <!--                </li>-->
   <!--            </ul>-->
   <!--        </form>-->
-  <form data-th-action="@{/encheres/modif}" method="post">
+
+  <form data-th-action="@{/encheres/view-modif(email=${activeUser.getEmail()})}" method="post">
 
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
@@ -70,31 +71,33 @@
                 <div class="row">
                   <div class="col-12 mb-3">
                     <input type="text" name="email" class="form-control" required
-                           data-th-value="${activeUser.email}" placeholder="Email" />
+                           data-th-value="${activeUser.email}" placeholder="Email" disabled/>
                   </div>
                   <div class="col-12 mb-3">
 
                     <input type="text" name="telephone" class="form-control" required
-                           data-th-value="${activeUser.telephone}" placeholder="Téléphone" />
+                           data-th-value="${activeUser.telephone}" placeholder="Téléphone" disabled />
                   </div>
                   <div class="col-12 mb-3">
                     <input type="text" name="rue" class="form-control" required
-                           data-th-value="${activeUser.rue}" placeholder="Rue" />
+                           data-th-value="${activeUser.rue}" placeholder="Rue" disabled />
                   </div>
                   <div class="col-6 mb-3">
                     <input type="text" name="codePostal" class="form-control" required
-                           data-th-value="${activeUser.codePostal}" placeholder="Code Postal" />
+                           data-th-value="${activeUser.codePostal}" placeholder="Code Postal" disabled />
                   </div>
                   <div class="col-6 mb-3">
                     <input type="text" name="ville" class="form-control" required
-                           data-th-value="${activeUser.ville}" placeholder="Ville" />
+                           data-th-value="${activeUser.ville}" placeholder="Ville" disabled />
                   </div>
                 </div>
 
                 <!-- Bouton de modification -->
-                <button type="submit" class="btn btn-primary btn-rounded btn-lg">
-                  Modifier
-                </button>
+                <a th:href="@{/encheres/modif(email=${activeUser.getEmail()})}" class="btn btn-primary btn-rounded btn-lg">
+                  Modifier votre profil
+                </a>
+
+
               </form>
 
             </div>
