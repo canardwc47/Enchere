@@ -75,6 +75,7 @@ public class EncheresController {
         // Get the active user (the seller) from the session or context
         Utilisateur utilisateur = utilisateurService.getUtilisateur(activeUser.getEmail());
         System.out.println(activeUser);
+        utilisateur.setNoUtilisateur(utilisateurService.getUtilisateur(activeUser.getEmail()).getNoUtilisateur());
 
         // Create and populate the Retrait object (location for withdrawal)
         Retrait retrait = new Retrait();

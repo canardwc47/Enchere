@@ -57,11 +57,10 @@ public class EnchereRowMapper implements RowMapper<Enchere> {
         article.setPrixVente(rs.getInt("prix_vente"));
         article.setCategorie(categorie);
         article.setLieuRetrait(retrait);
-        article.setVendeur(utilisateurService.getUtilisateur(rs.getInt("no_utilisateur")));
+        article.setVendeur(user);
 
 
         enchere.setArticleVendu(article);
-        enchere.setLastBidder(user);
 
         return enchere;
     }
