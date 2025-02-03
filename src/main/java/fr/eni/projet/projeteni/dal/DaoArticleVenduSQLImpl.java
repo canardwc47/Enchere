@@ -63,7 +63,7 @@ public class DaoArticleVenduSQLImpl implements DaoArticleVendu {
 
     @Override
     public void update(ArticleVendu articleVendu) {
-        jdbcTemplate.update(UPDATE, articleVendu.getNomArticle(), articleVendu.getDescription(), articleVendu.getDateDebutEncheres(), articleVendu.getDateFinEncheres(), articleVendu.getMiseAPrix(), articleVendu.getPrixVente(), articleVendu.getVendeur().getNoUtilisateur(), articleVendu.getCategorie().getNoCategorie());
+        jdbcTemplate.update(UPDATE, articleVendu.getNomArticle(), articleVendu.getDescription(), articleVendu.getDateDebutEncheres(), articleVendu.getDateFinEncheres(), articleVendu.getMiseAPrix(), articleVendu.getPrixVente(), articleVendu.getVendeur().getNoUtilisateur(), articleVendu.getCategorie().getNoCategorie(), articleVendu.getNoArticle());
     }
 
 

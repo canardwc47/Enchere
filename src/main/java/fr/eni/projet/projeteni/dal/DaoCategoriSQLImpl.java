@@ -60,7 +60,7 @@ public class DaoCategoriSQLImpl implements DaoCategories {
 
     @Override
     public void update(Categorie  categorie) {
-        jdbcTemplate.update(UPDATE, categorie.getLibelle());
+        jdbcTemplate.update(UPDATE, categorie.getLibelle(), categorie.getNoCategorie());
     }
 
     @Override
