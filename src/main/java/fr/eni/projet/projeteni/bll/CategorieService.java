@@ -5,7 +5,7 @@ import fr.eni.projet.projeteni.bo.Categorie;
 import java.util.List;
 
 public interface CategorieService {
-    void addCategories(Categorie categori);
+    int addCategories(Categorie categori);
 
     void removeCategories(int id);
 

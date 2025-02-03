@@ -9,7 +9,7 @@ public interface ArticleVenduService {
 
     ArticleVendu getArticleVenduById(int id);
 
-    void createArticleVendu(ArticleVendu articleVendu);
+    int createArticleVendu(ArticleVendu articleVendu);
 
     void updateArticleVendu(ArticleVendu articleVendu);
 

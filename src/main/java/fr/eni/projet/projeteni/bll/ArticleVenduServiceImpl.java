@@ -28,8 +28,8 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
     }
 
     @Override
-    public void createArticleVendu(ArticleVendu articleVendu) {
-        daoArticleVendu.create(articleVendu);
+    public int createArticleVendu(ArticleVendu articleVendu) {
+        return daoArticleVendu.create(articleVendu);
     }
 
     @Override
