@@ -15,7 +15,7 @@
         <p><strong>Meilleure offre :</strong> <strong data-th-if="${enchere!=null}" data-th-text="${enchere.montant_enchere}"></strong></p>
         <p><strong>Mise à prix :</strong> <strong data-th-if="${enchere!=null}" data-th-text="${enchere.articleVendu.miseAPrix}"></strong></p>
         <p><strong>Fin de l'enchère :</strong> <strong data-th-if="${enchere!=null}" data-th-text="${enchere.articleVendu.dateFinEncheres}"></strong></p>
-        <p><strong>Retrait :</strong> <strong data-th-if="${enchere!=null}" data-th-text="${enchere.articleVendu.lieuRetrait}"></strong></p>
+        <p><strong>Retrait :</strong> <strong data-th-if="${enchere!=null}" data-th-text="${enchere.getArticleVendu().getLieuRetrait().getRue()} + ' ' + ${enchere.articleVendu.lieuRetrait.getCode_postal()} + ' ' + ${enchere.getArticleVendu().getLieuRetrait().getVille()}" ></strong></p>
         <p><strong>Vendeur :</strong> <strong data-th-if="${enchere!=null}" data-th-text="${enchere.articleVendu.vendeur.pseudo}"></strong></p>
         <div class="bid">
             <label for="bid">Ma proposition :</label>

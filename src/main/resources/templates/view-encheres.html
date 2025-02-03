@@ -121,6 +121,7 @@
 
                             <li><strong>Prix :</strong> <span th:text="${article.prixVente}"></span> points</li>
                             <li><strong>Fin de l'enchère:</strong> <span th:text="${article.dateFinEncheres}"></span></li>
+                            <li><a href="#" th:href="@{/encheres/detail(id=${article.noArticle})}" class="btn btn-primary me-3">Details</a></li>
 
                         </ul>
                     </div>
