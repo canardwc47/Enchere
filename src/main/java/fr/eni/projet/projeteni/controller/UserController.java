@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
 @SessionAttributes("activeUser")
@@ -82,7 +81,10 @@ public class UserController {
     }
 
 
-//WORKS
+
+
+
+//this shows the profile page
     @GetMapping("/profil")
     public String profil(@ModelAttribute("activeUser") Utilisateur userActif, Model model) {
 
@@ -95,18 +97,68 @@ public class UserController {
     }
 
 
-//WORKS
-    @PostMapping("/profil")
-    public String mettreAJourProfil(@ModelAttribute Utilisateur utilisateur, Model model) {
-        // Récupère l'utilisateur existant
-        model.addAttribute("utilisateur", new Utilisateur());
-        utilisateur.setMotDePasse(utilisateurService.getUtilisateur(utilisateur.getEmail()).getMotDePasse());
 
-        System.out.println(utilisateur);
 
-        // Sauvegarde les modifications
+@GetMapping("/modif")
+public String modif(
+        @ModelAttribute("activeUser") Utilisateur userActif,
+        @RequestParam(name = "email", required = false) String email,
+        Model model) {
+
+    // Determine which email to use (priority: request param > active user)
+    String userEmail = (email != null) ? email : (userActif != null ? userActif.getEmail() : null);
+
+    if (userEmail == null) {
+        // If no email is available, redirect or show an error
+        System.out.println("Erreur: Aucun utilisateur actif ou email fourni");
+        return "redirect:/";
+    }
+
+    // Retrieve the user details using the determined email
+    Utilisateur utilisateur = utilisateurService.getUtilisateur(userEmail);
+    if (utilisateur == null) {
+        model.addAttribute("error", "Utilisateur introuvable pour l'email : " + userEmail);
+        return "error"; // Ensure you have an "error.html" page
+    }
+
+    model.addAttribute("utilisateur", utilisateur);
+    return "view-modif";
+}
+
+
+
+    @PostMapping("/modif")
+    public String mettreAJourProfil(@ModelAttribute("activeUser") Utilisateur utilisateur, Model model) {
+        // Retrieve the existing user from the database (preserving the password)
+        Utilisateur existingUser = utilisateurService.getUtilisateur(utilisateur.getEmail());
+        if (existingUser != null) {
+            utilisateur.setMotDePasse(existingUser.getMotDePasse());
+        }
+
+        // Save the updated user
         utilisateurService.updateUtilisateur(utilisateur);
 
-        return "redirect:/encheres/modif?email="+ utilisateur.getEmail() ; // Redirige vers le profil mis à jour
+        // Update the activeUser in the session with the new values
+        model.addAttribute("activeUser", utilisateurService.getUtilisateur(utilisateur.getEmail()));
+
+        // Redirect to the profile page
+        return "redirect:/encheres/profil";
+    }
+
+
+
+    @PostMapping("/supprimer")
+    public String supprimerCompte(@ModelAttribute("activeUser") Utilisateur userActif, SessionStatus sessionStatus) {
+        if (userActif != null && userActif.getEmail() != null) {
+            Utilisateur existingUser = utilisateurService.getUtilisateur(userActif.getEmail());
+            if (existingUser != null) {
+                utilisateurService.deleteUtilisateur(existingUser);
+            }
+        }
+
+        // Réinitialiser la session
+        sessionStatus.setComplete();
+
+        return "redirect:/encheres";
     }
 }
