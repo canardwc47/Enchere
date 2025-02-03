@@ -15,8 +15,8 @@ public class CategorieServicelmp implements CategorieService {
     }
 
     @Override
-    public void addCategories(Categorie categori) {
-        daoCategories.create(categori);
+    public int addCategories(Categorie categori) {
+        return daoCategories.create(categori);
     }
 
     @Override
