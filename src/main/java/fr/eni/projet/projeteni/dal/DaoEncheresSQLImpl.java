@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -61,7 +62,7 @@ public class DaoEncheresSQLImpl implements DaoEncheres {
             "VALUES (:nom_article,:description,:date_debut_encheres,:date_fin_encheres,:prix_initial,:prix_vente,:no_utilisateur,:no_categorie)";
 
     static final String DELETE = "DELETE FROM ENCHERES where no_article=?";
-    static final String UPDATE = "UPDATE ENCHERES set no_enchere=?,no_article=?,date_enchere=?,montant_enchere=? where no_article=?";
+    static final String UPDATE = "UPDATE ENCHERES set no_utilisateur=?,no_article=?,date_enchere=?,montant_enchere=? where no_article=?";
 
 
     private JdbcTemplate jdbcTemplate;
@@ -89,6 +90,7 @@ public class DaoEncheresSQLImpl implements DaoEncheres {
 //        return jdbcTemplate.queryForObject(SELECT_BY_ID, BeanPropertyRowMapper.newInstance(Enchere.class), idArticle);
 //    }
 
+    @Transactional
     @Override
     public int create(Enchere enchere) {
         var namedparameters = new MapSqlParameterSource();
@@ -114,7 +116,7 @@ public class DaoEncheresSQLImpl implements DaoEncheres {
 
     @Override
     public void update(Enchere enchere) {
-        jdbcTemplate.update(UPDATE, enchere.getArticleVendu().getNoArticle(), enchere.getArticleVendu().getNoArticle(), enchere.getDateEnchere(), enchere.getMontant_enchere());
+        jdbcTemplate.update(UPDATE, enchere.getLastBidder().getNoUtilisateur(), enchere.getArticleVendu().getNoArticle(), enchere.getDateEnchere(), enchere.getMontant_enchere(), enchere.getArticleVendu().getNoArticle());
     }
 
     @Override

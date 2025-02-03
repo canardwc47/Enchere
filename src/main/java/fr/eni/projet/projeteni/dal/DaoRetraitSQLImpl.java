@@ -17,10 +17,10 @@ public class DaoRetraitSQLImpl implements DaoRetrait {
 
     static final String SELECT_ALL = "select * from RETRAITS";
     static final String SELECT_BY_ID = "select * from RETRAITS where no_article = ?";
-    static final String INSERT = "INSERT  INTO RETRAITS ([rue],[code_postal],[ville]) " +
-                                 "VALUES (:rue,:code_postal,:ville)";
+    static final String INSERT = "INSERT  INTO RETRAITS ([no_article],[rue],[code_postal],[ville]) " +
+                                 "VALUES (:no_article,:rue,:code_postal,:ville)";
     static final String DELETE = "DELETE FROM RETRAITS where no_article=?";
-    static final String UPDATE = "UPDATE RETRAITS set rue=?,code_postal=?,ville=? where no_article=?";
+    static final String UPDATE = "UPDATE RETRAITS set no_article=?, rue=?,code_postal=?,ville=? where no_article=?";
 
 
     private JdbcTemplate jdbcTemplate;
@@ -60,7 +60,7 @@ public class DaoRetraitSQLImpl implements DaoRetrait {
 
     @Override
     public void update(Retrait retrait) {
-        jdbcTemplate.update(UPDATE, retrait.getRue(), retrait.getCode_postal(), retrait.getVille(), retrait.getId_article());
+        jdbcTemplate.update(UPDATE,retrait.getId_article() , retrait.getRue(), retrait.getCode_postal(), retrait.getVille(), retrait.getId_article());
     }
 
     @Override
