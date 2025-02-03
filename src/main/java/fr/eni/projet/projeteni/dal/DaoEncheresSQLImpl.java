@@ -20,39 +20,39 @@ import java.util.List;
 public class DaoEncheresSQLImpl implements DaoEncheres {
 
     static final String SELECT_ALL = "select * from ENCHERES";
-    static final String SELECT_BY_ID = "SELECT" +
-            "    e.no_utilisateur," +
-            "    e.no_article," +
-            "    e.date_enchere," +
-            "    e.montant_enchere," +
-            "    a.nom_article," +
-            "    a.description," +
-            "    a.date_debut_encheres," +
-            "    a.date_fin_encheres," +
-            "    a.prix_initial," +
-            "    a.prix_vente," +
-            "    u.pseudo," +
-            "    u.nom," +
-            "    u.prenom," +
-            "    u.email," +
-            "    u.telephone," +
-            "    u.rue AS utilisateur_rue," +
-            "    u.code_postal AS utilisateur_code_postal," +
-            "    u.ville AS utilisateur_ville," +
-            "    r.rue AS retrait_rue," +
-            "    r.code_postal AS retrait_code_postal," +
-            "    r.ville AS retrait_ville, " +
-            "    c.libelle AS categorie_libelle " +
-            "FROM " +
-            "    ENCHERES e " +
-            "JOIN " +
-            "    ARTICLES_VENDUS a ON e.no_article = a.no_article " +
-            "JOIN " +
-            "    UTILISATEURS u ON e.no_utilisateur = u.no_utilisateur " +
-            "LEFT JOIN " +
-            "    RETRAITS r ON a.no_article = r.no_article " +
-            "JOIN" +
-            "    CATEGORIES c ON a.no_categorie = c.no_categorie " +
+    static final String SELECT_BY_ID = "SELECT\n" +
+            "    e.no_utilisateur,\n" +
+            "    e.no_article,\n" +
+            "    e.date_enchere,\n" +
+            "    e.montant_enchere,\n" +
+            "    a.nom_article,\n" +
+            "    a.description,\n" +
+            "    a.date_debut_encheres,\n" +
+            "    a.date_fin_encheres,\n" +
+            "    a.prix_initial,\n" +
+            "    a.prix_vente,\n" +
+            "    u.pseudo,\n" +
+            "    u.nom,\n" +
+            "    u.prenom,\n" +
+            "    u.email,\n" +
+            "    u.telephone,\n" +
+            "    u.rue AS utilisateur_rue,\n" +
+            "    u.code_postal AS utilisateur_code_postal,\n" +
+            "    u.ville AS utilisateur_ville,\n" +
+            "    r.rue AS retrait_rue,\n" +
+            "    r.code_postal AS retrait_code_postal,\n" +
+            "    r.ville AS retrait_ville,\n" +
+            "    c.libelle AS categorie_libelle\n" +
+            "FROM\n" +
+            "    ENCHERES e\n" +
+            "JOIN\n" +
+            "    ARTICLES_VENDUS a ON e.no_article = a.no_article\n" +
+            "JOIN\n" +
+            "    UTILISATEURS u ON a.no_utilisateur = u.no_utilisateur\n" +
+            "LEFT JOIN\n" +
+            "    RETRAITS r ON a.no_article = r.no_article\n" +
+            "JOIN\n" +
+            "    CATEGORIES c ON a.no_categorie = c.no_categorie\n" +
             "WHERE" +
             "    e.no_article = ?";
 //            "select * from ENCHERES where no_article = ?";
@@ -60,6 +60,7 @@ public class DaoEncheresSQLImpl implements DaoEncheres {
             "VALUES (:no_utilisateur,:no_article,:date_enchere,:montant_enchere)";
     static final String INSERT_ARTICLE ="INSERT  INTO ARTICLES_VENDUS ([nom_article],[description],[date_debut_encheres],[date_fin_encheres],[prix_initial],[prix_vente],[no_utilisateur],[no_categorie]) " +
             "VALUES (:nom_article,:description,:date_debut_encheres,:date_fin_encheres,:prix_initial,:prix_vente,:no_utilisateur,:no_categorie)";
+    static final String INSERT_RETRAIT = "INSERT  INTO RETRAITS ([no_article],[rue],[code_postal],[ville]) VALUES (:no_article,:rue,:code_postal,:ville)";
 
     static final String DELETE = "DELETE FROM ENCHERES where no_article=?";
     static final String UPDATE = "UPDATE ENCHERES set no_utilisateur=?,no_article=?,date_enchere=?,montant_enchere=? where no_article=?";
@@ -104,13 +105,23 @@ public class DaoEncheresSQLImpl implements DaoEncheres {
         namedparameters.addValue("no_categorie", enchere.getArticleVendu().getCategorie().getNoCategorie());
         var keyHolder = new GeneratedKeyHolder();
         namedParameterJdbcTemplate.update(INSERT_ARTICLE, namedparameters, keyHolder);
+
         int noArticle = keyHolder.getKey().intValue();
+
+        var namedparameters2 = new MapSqlParameterSource();
+        namedparameters2.addValue("no_article", noArticle);
+        namedparameters2.addValue("rue", enchere.getArticleVendu().getLieuRetrait().getRue());
+        namedparameters2.addValue("code_postal", enchere.getArticleVendu().getLieuRetrait().getCode_postal());
+        namedparameters2.addValue("ville", enchere.getArticleVendu().getLieuRetrait().getVille());
+        namedParameterJdbcTemplate.update(INSERT_RETRAIT, namedparameters2);
+
         var namedparameters1 = new MapSqlParameterSource();
         namedparameters1.addValue("no_utilisateur", 0);
         namedparameters1.addValue("no_article", noArticle);
         namedparameters1.addValue("date_enchere", enchere.getArticleVendu().getDateDebutEncheres());
-        namedparameters1.addValue("montant_enchere", 0);
+        namedparameters1.addValue("montant_enchere", enchere.getArticleVendu().getPrixVente());
         namedParameterJdbcTemplate.update(INSERT_ENCHERE, namedparameters1);
+
         return noArticle;
     }
 
