@@ -7,34 +7,39 @@ public class BusinessCode {
     public static final String VALIDATION_UTILISATEUR_PSEUDO_INVALIDE = "validation.utilisateur.pseudo.invalide";
     public static final String VALIDATION_UTILISATEUR_PSEUDO_BLANK = "validation.utilisateur.pseudo.blank";
     public static final String VALIDATION_UTILISATEUR_PSEUDO_TAILLE = "validation.utilisateur.pseudo.taille";
-    public static final String VALIDATION_PSEUDO_DEJA_UTILISE = "validation.pseudo.deja.utilise";
+    public static final String VALIDATION_PSEUDO_DEJA_UTILISE = "validation.utilisateur.pseudo.utilise";
 
-    public static final String VALIDATION_FILM_DUREE = "validation.film.duree";
-    public static final String VALIDATION_FILM_SYNOPSIS_BLANK = "validation.film.synopsis.blank";
-    public static final String VALIDATION_FILM_SYNOPSIS_LENGTH = "validation.film.synopsis.length";
-    public static final String VALIDATION_FILM_GENRE_NULL = "validation.film.genre.null";
-    public static final String VALIDATION_FILM_GENRE_ID_INCONNU = "validation.film.genre.id.inconnu";
-    public static final String VALIDATION_FILM_REALISATEUR_NULL = "validation.film.realisateur.null";
-    public static final String VALIDATION_FILM_REALISATEUR_ID_INCONNU = "validation.film.realisateur.id.inconnu";
-    public static final String VALIDATION_FILM_ACTEUR_ID_INCONNU = "validation.film.acteur.id.inconnu";
-    public static final String VALIDATION_FILM_UNIQUE = "validation.film.unique";
+    public static final String VALIDATION_UTILISATEUR_EMAIL_BLANK= "validation.utilisateur.email.blank";
+    public static final String VALIDATION_UTILISATEUR_EMAIL_INVALIDE = "validation.utilisateur.email.invalide";
+    public static final String VALIDATION_UTILISATEUR_EMAIL_DEJA_UTILISE = "validation.utilisateur.email.deja.utilise";
+    public static final String VALIDATION_UTILISATEUR_EMAIL_TROP_LONG = "validation.utilisateur.email.trop.long";
 
-    public static final String BLL_FILM_CREER_ERREUR="bll.film.creer.erreur";
-    public static final String BLL_AVIS_CREER_ERREUR="bll.avis.creer.erreur";
+    public static final String VALIDATION_UTILISATEUR_NOM_BLANK = "validation.nom.blank";
+    public static final String VALIDATION_UTILISATEUR_NOM_TROP_LONG = "validation.nom.trop.long";
+    public static final String VALIDATION_UTILISATEUR_NOM_INVALIDE = "validation.utilisateur.nom.invalide";
 
-    public static final String VALIDATION_MEMBRE_ADMIN = "validation.membre.admin";
-    public static final String VALIDATION_MEMBRE = "validation.membre";
+    public static final String VALIDATION_UTILISATEUR_PRENOM_BLANK = "validation.utilisateur.prenom.blank";
+    public static final String VALIDATION_UTILISATEUR_PRENOM_TROP_LONG = "validation.utilisateur.prenom.trop.long";
+    public static final String VALIDATION_UTILISATEUR_PRENOM_INVALIDE = "validation.utilisateur.prenom.invalide";
+
+    public static final String VALIDATION_UTILISATEUR_CP_NULL="validation.utilisateur.cp.null";
+    public static final String VALIDATION_UTILISATEUR_CP_INVALIDE="validation.utilisateur.cp.invalide ";
+
+    public static final String VALIDATION_UTILISATEUR_NUMERO_RUE_NULL = "validation.utilisateur.numero.null";
+    public static final String VALIDATION_UTILISATEUR_NUMERO_RUE_INVALIDE = "validation.utilisateur.numero.invalide";
 
 
+    public static final String VALIDATION_UTILISATEUR_TELEPHONE_NULL = "validation.utilisateur.telephone.null";
+    public static final String VALIDATION_UTILISATEUR_TELEPHONE_INVALIDE = "validation.utilisateur.telephone.invalide";
 
-    public static final String VALIDATION_AVIS_NULL = "validation.avis.null";
-    public static final String VALIDATION_AVIS_NOTE = "validation.avis.note";
-    public static final String VALIDATION_AVIS_COMMENTAIRE_BLANK = "validation.avis.commentaire.blank";
-    public static final String VALIDATION_AVIS_COMMENTAIRE_LENGTH = "validation.avis.commentaire.length";
-    public static final String VALIDATION_AVIS_MEMBRE_NULL = "validation.avis.membre.null";
-    public static final String VALIDATION_AVIS_MEMBRE_ID_INCONNU = "validation.avis.membre.id.inconnu";
-    public static final String VALIDATION_AVIS_MEMBRE_INCONNU = "validation.avis.membre.inconnu";
-    public static final String VALIDATION_AVIS_UNIQUE = "validation.avis.unique";
+    public static final String VALIDATION_UTILISATEUR_VILLE_NULL = "validation.utilisateur.ville.null";
+    public static final String VALIDATION_UTILISATEUR_VILLE_INVALIDE = "validation.utilisateur.ville.invalide";
+
+    public static final String VALIDATION_UTILISATEUR_MDP_NULL = "validation.utilisateur.mdp.null";
+    public static final String VALIDATION_UTILISATEUR_MDP_INVALIDE = "validation.utilisateur.mdp.invalide";
+
+    public static final String VALIDATION_UTILISATEUR_CONFIRMATION_MDP_NULL = "validation.utilisateur.confirmation.mdp.null";
+    public static final String VALIDATION_UTILISATEUR_CONFIRMATION_MDP_DIFFERENT= "validation.utilisateur.confirmation.mdp.different";
 
     public static final String VALIDATION_FILM_INCONNU = "validation.film.inconnu";
     public static final String VALIDATION_FILM_ID_INCONNU = "validation.film.id.inconnu";
