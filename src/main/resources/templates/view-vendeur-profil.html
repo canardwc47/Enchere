@@ -5,7 +5,7 @@
 
 
 <main>
-  <form data-th-action="@{enchere/vendeur-profil/id(${enchere.articleVendu.vendeur.pseudo})}" method="post">
+  <form>
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
 
@@ -13,7 +13,7 @@
           <div class="card" style="border-radius: 15px;">
 
             <div class="card-body text-center">
-              <h1>Mon profil</h1>
+              <h1>Profil de vendeur</h1>
               <!-- Avatar -->
               <div class="mt-3 mb-4">
                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
@@ -30,7 +30,7 @@
 
 
               <!-- Formulaire de modification -->
-              <form data-th-action="@{/encheres/profil}" method="post">
+              <form>
                 <div class="row">
                   <div class="col-12 mb-3">
                     <input type="text" name="email" class="form-control" required
@@ -54,13 +54,6 @@
                            data-th-value="${activeUser.ville}" placeholder="Ville" disabled />
                   </div>
                 </div>
-
-                <!-- Bouton de modification -->
-                <a th:href="@{/encheres/modif(email=${activeUser.getEmail()})}" class="btn btn-primary btn-rounded btn-lg">
-                  Modifier votre profil
-                </a>
-
-
               </form>
 
             </div>
