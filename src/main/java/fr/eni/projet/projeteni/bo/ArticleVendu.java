@@ -142,4 +142,23 @@ public class ArticleVendu {
     public void setVendeur(Utilisateur vendeur) {
         this.vendeur = vendeur;
     }
+
+    @Override
+    public String toString() {
+        return "ArticleVendu{" +
+                "noArticle=" + noArticle +
+                ", nomArticle='" + nomArticle + '\'' +
+                ", description='" + description + '\'' +
+                ", dateDebutEncheres=" + dateDebutEncheres +
+                ", dateFinEncheres=" + dateFinEncheres +
+                ", miseAPrix=" + miseAPrix +
+                ", prixVente=" + prixVente +
+                ", etatVente='" + etatVente + '\'' +
+                ", lieuRetrait=" + lieuRetrait +
+                ", categorie=" + categorie +
+                ", encheres=" + encheres +
+                ", acheteur=" + acheteur +
+                ", vendeur=" + vendeur +
+                '}';
+    }
 }

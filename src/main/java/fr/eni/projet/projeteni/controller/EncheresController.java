@@ -1,11 +1,10 @@
 package fr.eni.projet.projeteni.controller;
 
 
+
+import fr.eni.projet.projeteni.bo.*;
 import fr.eni.projet.projeteni.bll.*;
-import fr.eni.projet.projeteni.bo.ArticleVendu;
-import fr.eni.projet.projeteni.bo.Enchere;
-import fr.eni.projet.projeteni.bo.Retrait;
-import fr.eni.projet.projeteni.bo.Utilisateur;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +36,7 @@ public class EncheresController {
     @GetMapping("/detail")
     public String afficherEnchereDetail(@RequestParam(name = "id") int id , Model model) {
         model.addAttribute("enchere", enchereService.getEnchere(id));
+
         System.out.println(enchereService.getEnchere(id));
         return "view-detail-vente";
     }
@@ -52,6 +52,7 @@ public class EncheresController {
     public String encheres(Model model) {
         var articles = articleVenduService.getAllArticleVendu();
         model.addAttribute("articles", articles);
+        model.addAttribute("categories", categorieService.getCategories());
         return "view-encheres";
     }
 
@@ -63,6 +64,7 @@ public class EncheresController {
         model.addAttribute("categories", categorieService.getCategories());
         return "view-creation-vente";  // Your view name (HTML file)
     }
+
 
     // Post the filled form
     @PostMapping("/cree")
@@ -110,7 +112,71 @@ public class EncheresController {
         // Save the auction to the database
         enchereService.addEnchere(enchere);
 
+
+
         // Redirect to a confirmation or list page after successful creation
         return "redirect:/encheres";
     }
+
+
+
+
+
+    @GetMapping("/modifier")
+    public String modifierVente(@RequestParam(name = "id") int id, Model model) {
+        var enchere = enchereService.getEnchere(id);
+        model.addAttribute("enchere", enchere);
+        model.addAttribute("categories", categorieService.getCategories());
+        return "view-modif-vente"; // Render form
+    }
+
+
+
+
+    @PostMapping("/modifier")
+    public String modifierEnchere(@RequestParam(name = "id") int id,
+                                  @RequestParam(name = "categorie") String categorie,
+                                  @RequestParam(name = "nom") String nom,
+                                  @RequestParam(name = "description") String description,
+                                  @RequestParam(name = "prix") int prix,
+                                  @RequestParam(name = "debut")LocalDate debut,
+                                  @RequestParam(name = "fin")LocalDate fin,
+                                  @RequestParam(name = "rue") String rue,
+                                  @RequestParam(name = "code_postal") int codePostal,
+                                  @RequestParam(name = "ville") String ville,
+                                  Model model) {
+
+
+        var enchere = enchereService.getEnchere(id);
+
+
+        var selectedCategorie = categorieService.getCategorieByName(categorie);
+
+        ArticleVendu articleVendu = enchere.getArticleVendu();
+        articleVendu.setNomArticle(nom);
+        articleVendu.setDescription(description);
+        articleVendu.setMiseAPrix(prix);
+        articleVendu.setDateDebutEncheres(debut);
+        articleVendu.setDateFinEncheres(fin);
+        articleVendu.setCategorie(selectedCategorie);
+
+        articleVendu.getLieuRetrait().setRue(rue);
+        articleVendu.getLieuRetrait().setCode_postal(codePostal);
+        articleVendu.getLieuRetrait().setVille(ville);
+
+        enchere.setArticleVendu(articleVendu);
+
+        System.out.println(enchere);
+        System.out.println(articleVendu);
+
+        if (enchere.getArticleVendu().getDateDebutEncheres().isAfter(LocalDate.now())){
+            enchereService.updateEnchere(enchere);
+            articleVenduService.updateArticleVendu(articleVendu);
+        }
+
+
+        return "redirect:/encheres";
+    }
+
 }
+

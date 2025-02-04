@@ -43,7 +43,7 @@ public class EnchereRowMapper implements RowMapper<Enchere> {
         lastBidder.setCredit(rs.getInt("enchere_credit"));
 
         Utilisateur vendeur = new Utilisateur();
-//        vendeur.setNoUtilisateur(rs.getInt("article_no_utilisateur"));
+        vendeur.setNoUtilisateur(rs.getInt("no_utilisateur_vendeur"));
         vendeur.setPseudo(rs.getString("article_pseudo"));
         vendeur.setNom(rs.getString("article_nom"));
         vendeur.setPrenom(rs.getString("article_prenom"));

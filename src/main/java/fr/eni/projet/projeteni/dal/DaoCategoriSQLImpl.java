@@ -43,11 +43,6 @@ public class DaoCategoriSQLImpl implements DaoCategories {
         return jdbcTemplate.queryForObject(SELECT_BY_ID, BeanPropertyRowMapper.newInstance(Categorie.class),libelle);
     }
 
-//    @Override
-//    public int create(Chat chat) {
-//        return jdbcTemplate.update(INSERT, chat.getName(), chat.getColor());
-//    }
-
     @Override
     public int create(Categorie categorie) {
         var namedparameters = new MapSqlParameterSource();

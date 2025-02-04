@@ -1,5 +1,6 @@
 package fr.eni.projet.projeteni.controller;
 
+import fr.eni.projet.projeteni.bll.EnchereService;
 import fr.eni.projet.projeteni.bll.UtilisateurService;
 import fr.eni.projet.projeteni.bo.Utilisateur;
 import org.springframework.stereotype.Controller;
@@ -17,9 +18,20 @@ public class UserController {
 
     private UtilisateurService utilisateurService;
 
-    public UserController(UtilisateurService utilisateurService) {
+    public UserController(UtilisateurService utilisateurService, EnchereService enchereService) {
         this.utilisateurService = utilisateurService;
+        this.enchereService = enchereService;
     }
+
+
+    private final EnchereService enchereService;
+
+
+
+
+
+
+
 
 
     @ModelAttribute("activeUser")
@@ -163,4 +175,20 @@ public String modif(
 
         return "redirect:/encheres";
     }
+
+
+
+
+
+    //CHECK THE SELLERS PROFILE
+    @GetMapping("/vendeur-profil")
+    public String vendeurProfil(@RequestParam(name = "id") int id, Model model) {
+
+        var user = utilisateurService.getUtilisateur(id);
+        if (user != null) {
+            model.addAttribute("activeUser", user);
+        }
+        return "view-vendeur-profil";
+    }
+
 }
