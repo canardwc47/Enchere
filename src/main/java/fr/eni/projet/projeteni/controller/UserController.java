@@ -2,23 +2,30 @@ package fr.eni.projet.projeteni.controller;
 
 import fr.eni.projet.projeteni.bll.UtilisateurService;
 import fr.eni.projet.projeteni.bo.Utilisateur;
+import fr.eni.projet.projeteni.exceptions.BusinessException;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.View;
 
 @Controller
 @SessionAttributes("activeUser")
 @RequestMapping("/encheres")
 public class UserController {
 
+    private final View error;
     private UtilisateurService utilisateurService;
 
-    public UserController(UtilisateurService utilisateurService) {
+    public UserController(UtilisateurService utilisateurService, View error) {
         this.utilisateurService = utilisateurService;
+        this.error = error;
     }
 
 
@@ -74,13 +81,35 @@ public class UserController {
 
 
 //WORKS (STILL NEEDS PWD ENCRYPTION)
-    @PostMapping("/inscription")
-    public String newCompte(@ModelAttribute("activeUser") Utilisateur activeUer,@ModelAttribute Utilisateur utilisateur) {
-        utilisateurService.addUtilisateur(utilisateur);
-        activeUer = utilisateur;
+@PostMapping("/inscription")
+public String newCompte(@Valid @ModelAttribute("activeUser") Utilisateur activeUser,
+                        BindingResult bindingResult,
+                        @ModelAttribute Utilisateur utilisateur) {
 
-        return "redirect:/encheres";
+    // Vérifier d'abord s'il y a des erreurs de validation
+    if (bindingResult.hasErrors()) {
+        return "view-creation-compte"; // Retourne la vue du formulaire d'inscription en cas d'erreur
     }
+
+    // Vérifier si l'utilisateur actif est null
+    if (activeUser == null) {
+        try {
+            utilisateurService.addUtilisateur(utilisateur);
+            activeUser = utilisateur; // Mettre à jour l'utilisateur actif après l'ajout
+            return "redirect:/encheres"; // Redirection en cas de succès
+        } catch (BusinessException e) {
+            System.err.println(e.getClefsExternalisations());
+            e.getClefsExternalisations().forEach(key -> {
+                ObjectError error = new ObjectError("globalError", key);
+                bindingResult.addError(error);
+            });
+            return "view-creation-compte"; // Retourne la vue du formulaire en cas d'erreur métier
+        }
+    }
+
+    return "redirect:/encheres"; // Si activeUser n'est pas null, redirection
+}
+
 
 
 
