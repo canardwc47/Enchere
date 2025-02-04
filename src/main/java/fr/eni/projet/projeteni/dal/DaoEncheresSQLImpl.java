@@ -25,6 +25,7 @@ public class DaoEncheresSQLImpl implements DaoEncheres {
             "    e.no_article,\n" +
             "    e.date_enchere,\n" +
             "    e.montant_enchere,\n" +
+            " a.no_utilisateur AS no_utilisateur_vendeur,\n" +
             "    a.nom_article,\n" +
             "    a.description,\n" +
             "    a.date_debut_encheres,\n" +
