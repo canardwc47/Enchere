@@ -152,7 +152,6 @@ public class EncheresController {
 
         var selectedCategorie = categorieService.getCategorieByName(categorie);
 
-
         ArticleVendu articleVendu = enchere.getArticleVendu();
         articleVendu.setNomArticle(nom);
         articleVendu.setDescription(description);
@@ -161,14 +160,21 @@ public class EncheresController {
         articleVendu.setDateFinEncheres(fin);
         articleVendu.setCategorie(selectedCategorie);
 
-
-
         articleVendu.getLieuRetrait().setRue(rue);
         articleVendu.getLieuRetrait().setCode_postal(codePostal);
         articleVendu.getLieuRetrait().setVille(ville);
 
+        enchere.setArticleVendu(articleVendu);
 
-        enchereService.updateEnchere(enchere);
+        System.out.println(enchere);
+        System.out.println(articleVendu);
+
+        if (enchere.getArticleVendu().getDateDebutEncheres().isAfter(LocalDate.now())){
+            enchereService.updateEnchere(enchere);
+            articleVenduService.updateArticleVendu(articleVendu);
+        }
+
+
         return "redirect:/encheres";
     }
 
