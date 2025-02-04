@@ -1,11 +1,10 @@
 package fr.eni.projet.projeteni.controller;
 
 
-import fr.eni.projet.projeteni.bll.ArticleVenduService;
-import fr.eni.projet.projeteni.bll.CategorieService;
-import fr.eni.projet.projeteni.bll.EnchereService;
-import fr.eni.projet.projeteni.bll.UtilisateurService;
+
 import fr.eni.projet.projeteni.bo.*;
+import fr.eni.projet.projeteni.bll.*;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,12 +21,15 @@ public class EncheresController {
     private EnchereService enchereService;
     private UtilisateurService utilisateurService;
     private CategorieService categorieService;
+    private EncherirService encherirService;
 
-    public EncheresController(ArticleVenduService articleVenduService, EnchereService enchereService, UtilisateurService utilisateurService, CategorieService categorieService) {
+
+    public EncheresController(ArticleVenduService articleVenduService, EnchereService enchereService, UtilisateurService utilisateurService, CategorieService categorieService, EncherirService encherirService) {
         this.articleVenduService = articleVenduService;
         this.enchereService = enchereService;
         this.utilisateurService = utilisateurService;
         this.categorieService = categorieService;
+        this.encherirService = encherirService;
     }
 
     //DOESNT WORK "MISSING VIEW CODE"
@@ -37,6 +39,12 @@ public class EncheresController {
 
         System.out.println(enchereService.getEnchere(id));
         return "view-detail-vente";
+    }
+
+    @PostMapping("/detail")
+    public String encherir(@RequestParam(name = "id") int id ,@RequestParam(name = "bid") int bid ,@ModelAttribute("activeUser") Utilisateur activeUser, Model model) {
+        encherirService.encherir(bid,id,activeUser);
+        return "redirect:/encheres";
     }
 
     //OFC IT WORKS
@@ -75,6 +83,7 @@ public class EncheresController {
         // Get the active user (the seller) from the session or context
         Utilisateur utilisateur = utilisateurService.getUtilisateur(activeUser.getEmail());
         System.out.println(activeUser);
+        utilisateur.setNoUtilisateur(utilisateurService.getUtilisateur(activeUser.getEmail()).getNoUtilisateur());
 
         // Create and populate the Retrait object (location for withdrawal)
         Retrait retrait = new Retrait();
@@ -99,6 +108,7 @@ public class EncheresController {
         enchere.setMontant_enchere(prix); // Set the starting bid amount
         enchere.setArticleVendu(articleVendu); // Set the article being auctioned
 
+
         // Save the auction to the database
         enchereService.addEnchere(enchere);
 
@@ -107,6 +117,7 @@ public class EncheresController {
         // Redirect to a confirmation or list page after successful creation
         return "redirect:/encheres";
     }
+
 
 
 
@@ -161,20 +172,5 @@ public class EncheresController {
         return "redirect:/encheres";
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
 }
-
-
-
 
