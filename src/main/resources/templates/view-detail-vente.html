@@ -18,7 +18,7 @@
         <p><strong>Fin de l'enchère :</strong> <strong data-th-if="${enchere!=null}" data-th-text="${enchere.articleVendu.dateFinEncheres}"></strong></p>
         <p><strong>Retrait :</strong> <strong data-th-if="${enchere!=null}" data-th-text="${enchere.getArticleVendu().getLieuRetrait().getRue()} + ' ' + ${enchere.articleVendu.lieuRetrait.getCode_postal()} + ' ' + ${enchere.getArticleVendu().getLieuRetrait().getVille()}" ></strong></p>
 
-        <a data-th-href="@{enchere/vendeur-profil/id(${enchere.articleVendu.vendeur.noUtilisateur})}">
+        <a data-th-href="@{vendeur-profil(id=${enchere.articleVendu.vendeur.noUtilisateur})}">
             <strong>Vendeur :</strong>
             <strong data-th-if="${enchere != null}" data-th-text="${enchere.articleVendu.vendeur.pseudo}"></strong>
         </a>

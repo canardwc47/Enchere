@@ -184,7 +184,10 @@ public String modif(
     @GetMapping("/vendeur-profil")
     public String vendeurProfil(@RequestParam(name = "id") int id, Model model) {
 
-
+        var user = utilisateurService.getUtilisateur(id);
+        if (user != null) {
+            model.addAttribute("activeUser", user);
+        }
         return "view-vendeur-profil";
     }
 
