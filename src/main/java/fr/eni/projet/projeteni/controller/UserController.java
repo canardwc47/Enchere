@@ -40,6 +40,7 @@ public class UserController {
         if (utilisateurService.getUtilisateur(email) != null && utilisateurService.getUtilisateur(email).getMotDePasse().equals(mdp)) {
             Utilisateur user = utilisateurService.getUtilisateur(email);
             if (user != null) {
+                activeUer.setNoUtilisateur(user.getNoUtilisateur());
                 activeUer.setEmail(email);
                 activeUer.setPrenom((user.getPrenom()));
                 activeUer.setNom(user.getNom());
@@ -49,6 +50,7 @@ public class UserController {
                 activeUer.setVille(user.getVille());
                 activeUer.setPseudo(user.getPseudo());
                 activeUer.setMotDePasse(mdp);
+                activeUer.setCredit(utilisateurService.getUtilisateur(email).getCredit());
             }else {
                 activeUer.setEmail(null);
                 activeUer.setPrenom(null);

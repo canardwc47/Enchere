@@ -1,10 +1,7 @@
 package fr.eni.projet.projeteni.controller;
 
 
-import fr.eni.projet.projeteni.bll.ArticleVenduService;
-import fr.eni.projet.projeteni.bll.CategorieService;
-import fr.eni.projet.projeteni.bll.EnchereService;
-import fr.eni.projet.projeteni.bll.UtilisateurService;
+import fr.eni.projet.projeteni.bll.*;
 import fr.eni.projet.projeteni.bo.ArticleVendu;
 import fr.eni.projet.projeteni.bo.Enchere;
 import fr.eni.projet.projeteni.bo.Retrait;
@@ -25,12 +22,15 @@ public class EncheresController {
     private EnchereService enchereService;
     private UtilisateurService utilisateurService;
     private CategorieService categorieService;
+    private EncherirService encherirService;
 
-    public EncheresController(ArticleVenduService articleVenduService, EnchereService enchereService, UtilisateurService utilisateurService, CategorieService categorieService) {
+
+    public EncheresController(ArticleVenduService articleVenduService, EnchereService enchereService, UtilisateurService utilisateurService, CategorieService categorieService, EncherirService encherirService) {
         this.articleVenduService = articleVenduService;
         this.enchereService = enchereService;
         this.utilisateurService = utilisateurService;
         this.categorieService = categorieService;
+        this.encherirService = encherirService;
     }
 
     //DOESNT WORK "MISSING VIEW CODE"
@@ -39,6 +39,12 @@ public class EncheresController {
         model.addAttribute("enchere", enchereService.getEnchere(id));
         System.out.println(enchereService.getEnchere(id));
         return "view-detail-vente";
+    }
+
+    @PostMapping("/detail")
+    public String encherir(@RequestParam(name = "id") int id ,@RequestParam(name = "bid") int bid ,@ModelAttribute("activeUser") Utilisateur activeUser, Model model) {
+        encherirService.encherir(bid,id,activeUser);
+        return "redirect:/encheres";
     }
 
     //OFC IT WORKS
@@ -100,6 +106,7 @@ public class EncheresController {
         enchere.setMontant_enchere(prix); // Set the starting bid amount
         enchere.setArticleVendu(articleVendu); // Set the article being auctioned
 
+
         // Save the auction to the database
         enchereService.addEnchere(enchere);
 
@@ -107,7 +114,3 @@ public class EncheresController {
         return "redirect:/encheres";
     }
 }
-
-
-
-
