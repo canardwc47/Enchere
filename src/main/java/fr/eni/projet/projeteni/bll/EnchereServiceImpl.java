@@ -1,9 +1,12 @@
 package fr.eni.projet.projeteni.bll;
 
+import fr.eni.projet.projeteni.bo.ArticleVendu;
 import fr.eni.projet.projeteni.bo.Enchere;
+import fr.eni.projet.projeteni.bo.Utilisateur;
 import fr.eni.projet.projeteni.dal.DaoEncheresSQLImpl;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -40,4 +43,5 @@ public class EnchereServiceImpl implements EnchereService {
 
         daoEncheresSQL.delete(enchere);
     }
+
 }
