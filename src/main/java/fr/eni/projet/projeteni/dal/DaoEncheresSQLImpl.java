@@ -31,14 +31,24 @@ public class DaoEncheresSQLImpl implements DaoEncheres {
             "    a.date_fin_encheres,\n" +
             "    a.prix_initial,\n" +
             "    a.prix_vente,\n" +
-            "    u.pseudo,\n" +
-            "    u.nom,\n" +
-            "    u.prenom,\n" +
-            "    u.email,\n" +
-            "    u.telephone,\n" +
-            "    u.rue AS utilisateur_rue,\n" +
-            "    u.code_postal AS utilisateur_code_postal,\n" +
-            "    u.ville AS utilisateur_ville,\n" +
+            "    ue.pseudo AS enchere_pseudo,\n" +
+            "    ue.nom AS enchere_nom,\n" +
+            "    ue.prenom AS enchere_prenom,\n" +
+            "    ue.email AS enchere_email,\n" +
+            "    ue.telephone AS enchere_telephone,\n" +
+            "    ue.rue AS enchere_utilisateur_rue,\n" +
+            "    ue.code_postal AS enchere_utilisateur_code_postal,\n" +
+            "    ue.ville AS enchere_utilisateur_ville,\n" +
+            "    ue.credit AS enchere_credit,\n" +
+            "    ua.pseudo AS article_pseudo,\n" +
+            "    ua.nom AS article_nom,\n" +
+            "    ua.prenom AS article_prenom,\n" +
+            "    ua.email AS article_email,\n" +
+            "    ua.telephone AS article_telephone,\n" +
+            "    ua.rue AS article_utilisateur_rue,\n" +
+            "    ua.code_postal AS article_utilisateur_code_postal,\n" +
+            "    ua.ville AS article_utilisateur_ville,\n" +
+            "    ua.credit AS article_credit,\n" +
             "    r.rue AS retrait_rue,\n" +
             "    r.code_postal AS retrait_code_postal,\n" +
             "    r.ville AS retrait_ville,\n" +
@@ -47,14 +57,17 @@ public class DaoEncheresSQLImpl implements DaoEncheres {
             "    ENCHERES e\n" +
             "JOIN\n" +
             "    ARTICLES_VENDUS a ON e.no_article = a.no_article\n" +
+            "LEFT JOIN\n" +
+            "    UTILISATEURS ue ON e.no_utilisateur = ue.no_utilisateur\n" +
             "JOIN\n" +
-            "    UTILISATEURS u ON a.no_utilisateur = u.no_utilisateur\n" +
+            "    UTILISATEURS ua ON a.no_utilisateur = ua.no_utilisateur\n" +
             "LEFT JOIN\n" +
             "    RETRAITS r ON a.no_article = r.no_article\n" +
             "JOIN\n" +
             "    CATEGORIES c ON a.no_categorie = c.no_categorie\n" +
-            "WHERE" +
-            "    e.no_article = ?";
+            "WHERE\n" +
+            "    e.no_article = ?\n" +
+            "    AND ( e.no_utilisateur IS NULL OR e.no_utilisateur = 0 OR ue.no_utilisateur IS NOT NULL);";
 //            "select * from ENCHERES where no_article = ?";
     static final String INSERT_ENCHERE = "INSERT  INTO ENCHERES ([no_utilisateur],[no_article],[date_enchere],[montant_enchere]) " +
             "VALUES (:no_utilisateur,:no_article,:date_enchere,:montant_enchere)";
@@ -119,7 +132,7 @@ public class DaoEncheresSQLImpl implements DaoEncheres {
         namedparameters1.addValue("no_utilisateur", 0);
         namedparameters1.addValue("no_article", noArticle);
         namedparameters1.addValue("date_enchere", enchere.getArticleVendu().getDateDebutEncheres());
-        namedparameters1.addValue("montant_enchere", enchere.getArticleVendu().getPrixVente());
+        namedparameters1.addValue("montant_enchere", enchere.getArticleVendu().getMiseAPrix());
         namedParameterJdbcTemplate.update(INSERT_ENCHERE, namedparameters1);
 
         return noArticle;

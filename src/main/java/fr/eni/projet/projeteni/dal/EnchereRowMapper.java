@@ -30,15 +30,29 @@ public class EnchereRowMapper implements RowMapper<Enchere> {
 
 
 
-        Utilisateur user = new Utilisateur();
-        user.setPseudo(rs.getString("pseudo"));
-        user.setNom(rs.getString("nom"));
-        user.setPrenom(rs.getString("prenom"));
-        user.setEmail(rs.getString("email"));
-        user.setTelephone(rs.getString("telephone"));
-        user.setRue(rs.getString("utilisateur_rue"));
-        user.setCodePostal(rs.getInt("utilisateur_code_postal"));
-        user.setVille(rs.getString("utilisateur_ville"));
+        Utilisateur lastBidder = new Utilisateur();
+        lastBidder.setNoUtilisateur(rs.getInt("no_utilisateur"));
+        lastBidder.setPseudo(rs.getString("enchere_pseudo"));
+        lastBidder.setNom(rs.getString("enchere_nom"));
+        lastBidder.setPrenom(rs.getString("enchere_prenom"));
+        lastBidder.setEmail(rs.getString("enchere_email"));
+        lastBidder.setTelephone(rs.getString("enchere_telephone"));
+        lastBidder.setRue(rs.getString("enchere_utilisateur_rue"));
+        lastBidder.setCodePostal(rs.getInt("enchere_utilisateur_code_postal"));
+        lastBidder.setVille(rs.getString("enchere_utilisateur_ville"));
+        lastBidder.setCredit(rs.getInt("enchere_credit"));
+
+        Utilisateur vendeur = new Utilisateur();
+//        vendeur.setNoUtilisateur(rs.getInt("article_no_utilisateur"));
+        vendeur.setPseudo(rs.getString("article_pseudo"));
+        vendeur.setNom(rs.getString("article_nom"));
+        vendeur.setPrenom(rs.getString("article_prenom"));
+        vendeur.setEmail(rs.getString("article_email"));
+        vendeur.setTelephone(rs.getString("article_telephone"));
+        vendeur.setRue(rs.getString("article_utilisateur_rue"));
+        vendeur.setCodePostal(rs.getInt("article_utilisateur_code_postal"));
+        vendeur.setVille(rs.getString("article_utilisateur_ville"));
+        vendeur.setCredit(rs.getInt("article_credit"));
 
         Categorie categorie = new Categorie();
         categorie.setLibelle(rs.getString("categorie_libelle"));
@@ -49,6 +63,7 @@ public class EnchereRowMapper implements RowMapper<Enchere> {
         retrait.setCode_postal(rs.getInt("retrait_code_postal"));
 
         ArticleVendu article = new ArticleVendu();
+        article.setNoArticle(rs.getInt("no_article"));
         article.setNomArticle(rs.getString("nom_article"));
         article.setDescription(rs.getString("description"));
         article.setDateDebutEncheres(rs.getTimestamp("date_debut_encheres").toLocalDateTime().toLocalDate());
@@ -57,10 +72,11 @@ public class EnchereRowMapper implements RowMapper<Enchere> {
         article.setPrixVente(rs.getInt("prix_vente"));
         article.setCategorie(categorie);
         article.setLieuRetrait(retrait);
-        article.setVendeur(user);
+        article.setVendeur(vendeur);
 
 
         enchere.setArticleVendu(article);
+        enchere.setLastBidder(lastBidder);
 
         return enchere;
     }
