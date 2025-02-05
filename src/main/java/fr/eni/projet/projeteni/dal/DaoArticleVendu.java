@@ -16,4 +16,10 @@ public interface DaoArticleVendu {
     void delete(ArticleVendu articleVendu);
 
     void delete(int id);
+
+    List<ArticleVendu> findByCategory(Long categoryId);
+
+    List<ArticleVendu> findByCategoryAndName(Long categoryId, String nomArticle);
+
+    List<ArticleVendu> findByName(String nomArticle);
 }
