@@ -48,11 +48,37 @@ public class EncheresController {
     }
 
     //OFC IT WORKS
+//    @GetMapping
+//    public String encheres(Model model) {
+//        var articles = articleVenduService.getAllArticleVendu();
+//        model.addAttribute("articles", articles);
+//        model.addAttribute("categories", categorieService.getCategories());
+//        return "view-encheres";
+//    }
+
     @GetMapping
-    public String encheres(Model model) {
-        var articles = articleVenduService.getAllArticleVendu();
+    public String encheres(@RequestParam(value = "nomArticle", required = false) String nomArticle,
+                           @RequestParam(value = "categorie", required = false) Long categorieId,
+                           Model model) {
+        List<ArticleVendu> articles;
+
+
+        if (categorieId != null) {
+            if (nomArticle != null && !nomArticle.isEmpty()) {
+                articles = articleVenduService.getArticlesByCategoryAndName(categorieId, nomArticle);
+            } else {
+                articles = articleVenduService.getArticlesByCategory(categorieId);
+            }
+        } else if (nomArticle != null && !nomArticle.isEmpty()) {
+            articles = articleVenduService.getArticlesByName(nomArticle);
+        } else {
+            articles = articleVenduService.getAllArticleVendu();
+        }
+
+
         model.addAttribute("articles", articles);
         model.addAttribute("categories", categorieService.getCategories());
+
         return "view-encheres";
     }
 
