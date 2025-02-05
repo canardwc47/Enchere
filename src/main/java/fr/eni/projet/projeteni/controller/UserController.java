@@ -42,40 +42,39 @@ public class UserController {
 //WORKS
     @GetMapping("/connexion")
     public String login(Model model) {
-        model.addAttribute("login", new Utilisateur());
         return "view-connexion";
     }
-
-//DOSENT WORK
-    @PostMapping("/connexion")
-    public String login(@RequestParam(name = "email") String email,@RequestParam(name = "password") String mdp,@ModelAttribute("activeUser") Utilisateur activeUer, Model model) {
-        if (utilisateurService.getUtilisateur(email) != null && utilisateurService.getUtilisateur(email).getMotDePasse().equals(mdp)) {
-            Utilisateur user = utilisateurService.getUtilisateur(email);
-            if (user != null) {
-                activeUer.setNoUtilisateur(user.getNoUtilisateur());
-                activeUer.setEmail(email);
-                activeUer.setPrenom((user.getPrenom()));
-                activeUer.setNom(user.getNom());
-                activeUer.setTelephone(user.getTelephone());
-                activeUer.setRue(user.getRue());
-                activeUer.setCodePostal(user.getCodePostal());
-                activeUer.setVille(user.getVille());
-                activeUer.setPseudo(user.getPseudo());
-                activeUer.setMotDePasse(mdp);
-                activeUer.setCredit(utilisateurService.getUtilisateur(email).getCredit());
-            }else {
-                activeUer.setEmail(null);
-                activeUer.setPrenom(null);
-                activeUer.setNom(null);
-                activeUer.setTelephone(null);
-                activeUer.setRue(null);
-                activeUer.setCodePostal(10000);
-                activeUer.setVille(null);
-                activeUer.setPseudo(null);
-            }
-        }
-        return "redirect:/encheres/profil";
-    }
+//
+////DOSENT WORK
+//    @PostMapping("/connexion")
+//    public String login(@RequestParam(name = "email") String email,@RequestParam(name = "password") String mdp,@ModelAttribute("activeUser") Utilisateur activeUer, Model model) {
+//        if (utilisateurService.getUtilisateur(email) != null && utilisateurService.getUtilisateur(email).getMotDePasse().equals(mdp)) {
+//            Utilisateur user = utilisateurService.getUtilisateur(email);
+//            if (user != null) {
+//                activeUer.setNoUtilisateur(user.getNoUtilisateur());
+//                activeUer.setEmail(email);
+//                activeUer.setPrenom((user.getPrenom()));
+//                activeUer.setNom(user.getNom());
+//                activeUer.setTelephone(user.getTelephone());
+//                activeUer.setRue(user.getRue());
+//                activeUer.setCodePostal(user.getCodePostal());
+//                activeUer.setVille(user.getVille());
+//                activeUer.setPseudo(user.getPseudo());
+//                activeUer.setMotDePasse(mdp);
+//                activeUer.setCredit(utilisateurService.getUtilisateur(email).getCredit());
+//            }else {
+//                activeUer.setEmail(null);
+//                activeUer.setPrenom(null);
+//                activeUer.setNom(null);
+//                activeUer.setTelephone(null);
+//                activeUer.setRue(null);
+//                activeUer.setCodePostal(10000);
+//                activeUer.setVille(null);
+//                activeUer.setPseudo(null);
+//            }
+//        }
+//        return "redirect:/encheres/profil";
+//    }
 
 //WORKS
     @GetMapping("/inscription")
