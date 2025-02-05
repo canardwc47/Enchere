@@ -5,6 +5,7 @@ import fr.eni.projet.projeteni.dal.UtilisateurDao;
 import fr.eni.projet.projeteni.exceptions.BusinessCode;
 import fr.eni.projet.projeteni.exceptions.BusinessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
 
     @Override
+    @Transactional
     public int addUtilisateur(Utilisateur utilisateur) {
         BusinessException be = new BusinessException();
         boolean isValid = true;
