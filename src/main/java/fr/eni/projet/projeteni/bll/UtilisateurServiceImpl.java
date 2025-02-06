@@ -104,7 +104,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
             be.add(BusinessCode.VALIDATION_UTILISATEUR_NOM_BLANK);
             return false;
         }
-        if (nom.length() > 100) {
+        if (nom.length() > 3) {
             be.add(BusinessCode.VALIDATION_UTILISATEUR_NOM_TROP_LONG);
             return false;
         }

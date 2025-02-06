@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @SessionAttributes("activeUser")
@@ -72,46 +73,60 @@ public class UserController {
         return "redirect:/encheres/profil";
     }
 
-//WORKS
     @GetMapping("/inscription")
-    public String creerunCompte(Model model) {
-        model.addAttribute("creationCompte", new Utilisateur());
+    public String creerUnCompte(Model model) {
+        model.addAttribute("utilisateur", new Utilisateur());
         return "view-creation-compte";
     }
 
+    // POST : Gestion de l'inscription
+    @PostMapping("/inscription")
+    public String newCompte(@Valid @ModelAttribute("utilisateur") Utilisateur utilisateur,
+                            BindingResult bindingResult,
+                            @ModelAttribute("activeUser") Utilisateur activeUser,
+                            Model model,
+                            RedirectAttributes redirectAttributes) {
 
-//WORKS (STILL NEEDS PWD ENCRYPTION)
-@PostMapping("/inscription")
-public String newCompte(@Valid @ModelAttribute("activeUser") Utilisateur activeUser,
-                        BindingResult bindingResult,
-                        @ModelAttribute Utilisateur utilisateur) {
+        // Vérifier s'il y a des erreurs de validation
+        if (bindingResult.hasErrors()) {
+            System.out.println("Des erreurs de validation ont été détectées !");
+            bindingResult.getAllErrors().forEach(error -> System.out.println(error.toString()));
 
-    // Vérifier d'abord s'il y a des erreurs de validation
-    if (bindingResult.hasErrors()) {
-        return "view-creation-compte"; // Retourne la vue du formulaire d'inscription en cas d'erreur
-    }
+            model.addAttribute("utilisateur", utilisateur);
+            return "view-creation-compte"; // Retour à la page d'inscription avec erreurs
+        }
 
-    // Vérifier si l'utilisateur actif est null
-    if (activeUser == null) {
+        // Vérifier si un utilisateur est déjà connecté
+        if (activeUser != null) {
+            return "redirect:/encheres";
+        }
+
         try {
+
+
+            // Enregistrement de l'utilisateur
             utilisateurService.addUtilisateur(utilisateur);
-            activeUser = utilisateur; // Mettre à jour l'utilisateur actif après l'ajout
-            return "redirect:/encheres"; // Redirection en cas de succès
+
+            // Stocker l'utilisateur actif en session
+            model.addAttribute("utilisateur", utilisateur);
+
+            // Message flash de succès
+            redirectAttributes.addFlashAttribute("message", "Votre inscription a bien été prise en compte. Bienvenue !");
+
+            return "redirect:/encheres"; // Redirection après succès
+
         } catch (BusinessException e) {
-            System.err.println(e.getClefsExternalisations());
+            System.err.println("Erreur métier détectée : " + e.getClefsExternalisations());
+
+            // Ajouter les erreurs globales
             e.getClefsExternalisations().forEach(key -> {
-                ObjectError error = new ObjectError("globalError", key);
-                bindingResult.addError(error);
+                bindingResult.reject("globalError", key);
             });
-            return "view-creation-compte"; // Retourne la vue du formulaire en cas d'erreur métier
+
+            model.addAttribute("utilisateur", utilisateur);
+            return "view-creation-compte"; // Retour à l'inscription avec erreurs
         }
     }
-
-    return "redirect:/encheres"; // Si activeUser n'est pas null, redirection
-}
-
-
-
 
 
 
