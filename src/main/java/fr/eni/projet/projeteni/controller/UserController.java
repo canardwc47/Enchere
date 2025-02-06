@@ -1,37 +1,33 @@
 package fr.eni.projet.projeteni.controller;
 
-import fr.eni.projet.projeteni.bll.EnchereService;
 import fr.eni.projet.projeteni.bll.UtilisateurService;
 import fr.eni.projet.projeteni.bo.Utilisateur;
+import fr.eni.projet.projeteni.exceptions.BusinessException;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @SessionAttributes("activeUser")
 @RequestMapping("/encheres")
 public class UserController {
 
+    private final View error;
     private UtilisateurService utilisateurService;
 
-    public UserController(UtilisateurService utilisateurService, EnchereService enchereService) {
+    public UserController(UtilisateurService utilisateurService, View error) {
         this.utilisateurService = utilisateurService;
-        this.enchereService = enchereService;
+        this.error = error;
     }
-
-
-    private final EnchereService enchereService;
-
-
-
-
-
-
-
 
 
     @ModelAttribute("activeUser")
@@ -76,24 +72,60 @@ public class UserController {
 //        return "redirect:/encheres/profil";
 //    }
 
-//WORKS
     @GetMapping("/inscription")
-    public String creerunCompte(Model model) {
-        model.addAttribute("creationCompte", new Utilisateur());
+    public String creerUnCompte(Model model) {
+        model.addAttribute("utilisateur", new Utilisateur());
         return "view-creation-compte";
     }
 
-
-//WORKS (STILL NEEDS PWD ENCRYPTION)
+    // POST : Gestion de l'inscription
     @PostMapping("/inscription")
-    public String newCompte(@ModelAttribute("activeUser") Utilisateur activeUer,@ModelAttribute Utilisateur utilisateur) {
-        utilisateurService.addUtilisateur(utilisateur);
-        activeUer = utilisateur;
+    public String newCompte(@Valid @ModelAttribute("utilisateur") Utilisateur utilisateur,
+                            BindingResult bindingResult,
+                            @ModelAttribute("activeUser") Utilisateur activeUser,
+                            Model model,
+                            RedirectAttributes redirectAttributes) {
 
-        return "redirect:/encheres";
+        // Vérifier s'il y a des erreurs de validation
+        if (bindingResult.hasErrors()) {
+            System.out.println("Des erreurs de validation ont été détectées !");
+            bindingResult.getAllErrors().forEach(error -> System.out.println(error.toString()));
+
+            model.addAttribute("utilisateur", utilisateur);
+            return "view-creation-compte"; // Retour à la page d'inscription avec erreurs
+        }
+
+        // Vérifier si un utilisateur est déjà connecté
+        if (activeUser != null) {
+            return "redirect:/encheres";
+        }
+
+        try {
+
+
+            // Enregistrement de l'utilisateur
+            utilisateurService.addUtilisateur(utilisateur);
+
+            // Stocker l'utilisateur actif en session
+            model.addAttribute("utilisateur", utilisateur);
+
+            // Message flash de succès
+            redirectAttributes.addFlashAttribute("message", "Votre inscription a bien été prise en compte. Bienvenue !");
+
+            return "redirect:/encheres"; // Redirection après succès
+
+        } catch (BusinessException e) {
+            System.err.println("Erreur métier détectée : " + e.getClefsExternalisations());
+
+            // Ajouter les erreurs globales
+            e.getClefsExternalisations().forEach(key -> {
+                bindingResult.reject("globalError", key);
+            });
+
+            model.addAttribute("utilisateur", utilisateur);
+            return "view-creation-compte"; // Retour à l'inscription avec erreurs
+        }
     }
-
-
 
 
 
@@ -174,20 +206,4 @@ public String modif(
 
         return "redirect:/encheres";
     }
-
-
-
-
-
-    //CHECK THE SELLERS PROFILE
-    @GetMapping("/vendeur-profil")
-    public String vendeurProfil(@RequestParam(name = "id") int id, Model model) {
-
-        var user = utilisateurService.getUtilisateur(id);
-        if (user != null) {
-            model.addAttribute("activeUser", user);
-        }
-        return "view-vendeur-profil";
-    }
-
 }

@@ -61,7 +61,7 @@
     <!--            </div>-->
     <!--        </form>-->
     <section class="h-100 h-custom gradient-custom-2">
-        <form action="/encheres/inscription" method="POST" th:object="${creationCompte}" class="from-creation-compte" >
+        <form action="/encheres/inscription" method="POST" th:object="${utilisateur}" class="from-creation-compte" >
             <div class="container py-5 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-12">
@@ -75,21 +75,26 @@
                                             <div class="row">
                                                 <div class="mb-4 pb-2">
                                                     <div data-mdb-input-init class="form-outline">
-                                                        <input type="text" id="pseudo" class="form-control form-control-lg"  required  data-th-field="*{pseudo}" minlength="4" maxlength="20" placeholder="Pseudo"/>
+                                                        <input type="text" id="pseudo" class="form-control form-control-lg"
+                                                               required  data-th-field="*{pseudo}" pattern="^[a-zA-Z0-9_-]+$" title="Seuls les lettres, chiffres, '-' et '_' sont autorisés. 10 caractères maximun" minlength="1" maxlength="10" placeholder="Pseudo"/>
 
                                                     </div>
 
                                                 </div>
                                                 <div class="col-md-6 mb-4 pb-2">
                                                     <div data-mdb-input-init class="form-outline">
-                                                        <input type="text" id="prenom" class="form-control form-control-lg"required  data-th-field="*{prenom}" minlength="4" maxlength="20" placeholder="Prénom" />
+                                                        <input type="text" id="prenom" class="form-control form-control-lg"
+                                                               required  data-th-field="*{prenom}" pattern="^[a-zA-ZÀ-ÿ ]+$" title="Seuls les lettres et les espaces sont autorisés. 20 caractères maximun" minlength="1" maxlength="20" placeholder="Prénom" />
 
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 mb-4 pb-2">
                                                     <div data-mdb-input-init class="form-outline">
-                                                        <input type="text" id="nom" class="form-control form-control-lg" required  data-th-field="*{nom}" minlength="4" maxlength="20" placeholder="Nom"/>
-
+                                                        <input type="text" id="nom" class="form-control form-control-lg"
+                                                               required  data-th-field="*{nom}"    pattern="^[a-zA-ZÀ-ÿ ]+$"
+                                                               title="Seuls les lettres et les espaces sont autorisés. 20 caractères maximun"
+                                                               minlength="1" maxlength="20" placeholder="Nom"/>
+                                                        <span data-th-if="${#fields.hasErrors('nom')}" th:errors="*{nom}" class="text-danger"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -99,19 +104,30 @@
 
                                                 <div class="mb-4 pb-2">
                                                     <div data-mdb-input-init class="form-outline">
-                                                        <input type="password"  name="mdp" id="mdp" class="form-control form-control-lg" required data-th-field="*{motDePasse}" minlength="4" maxlength="10" placeholder="Mot de passe"/>
+                                                        <input type="password"  name="mdp" id="mdp" class="form-control form-control-lg"
+                                                               required data-th-field="*{motDePasse}"
+                                                               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=!]).{8,64}$"
+                                                               title="Le mot de passe doit contenir entre 8 et 64 caractères, avec au moins une majuscule, une minuscule, un chiffre et un caractère spécial" placeholder="Mot de passe"/>
 
                                                     </div>
                                                 </div>
                                                 <div class="mb-4 pb-2">
                                                     <div data-mdb-input-init class="form-outline">
+
+                                                        <input type="password" name="verifmdp" id="mdpVerif" class="form-control form-control-lg"  required
+                                                               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,64}$"
+                                                               title="La confirmation doit respecter les mêmes critères que le mot de passe"
+                                                               data-th-field="*{motDePasse}" placeholder="Confirmez votre mot de passe"/>
+
                                                         <input type="password" name="verifmdp" id="mdpVerif" class="form-control form-control-lg"  required  minlength="4" maxlength="20" placeholder="Confirmez votre mot de passe"/>
 
+
                                                     </div>
                                                 </div>
                                                 <div class="mb-4 pb-2">
                                                     <div data-mdb-input-init class="form-outline">
-                                                        <input type="text" id="email" class="form-control form-control-lg" required  data-th-field="*{email}" placeholder="Email"/>
+                                                        <input type="text" id="email" class="form-control form-control-lg" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                                                               title="L'adresse email n'est pas valide"required  data-th-field="*{email}" placeholder="Email"/>
 
                                                     </div>
                                                 </div>
@@ -127,7 +143,10 @@
                                             <!-- Chaque champ de Contact Details est déplacé à gauche en utilisant 'col-md-12' -->
                                             <div class="mb-4 pb-2">
                                                 <div data-mdb-input-init class="form-outline form-white">
-                                                    <input type="text" id="form3Examplea2" class="form-control form-control-lg" required  data-th-field="*{rue}" minlength="4" maxlength="20" placeholder="Rue" />
+                                                    <input type="text" id="form3Examplea2" class="form-control form-control-lg" required
+                                                           pattern="^\d+[A-Za-z]?$"
+                                                           title="Le numéro de rue doit être un nombre suivi éventuellement d'une lettre (ex: 12B, 45A, 7)"
+                                                           data-th-field="*{rue}" minlength="4" maxlength="20" placeholder="Rue" />
 
                                                 </div>
                                             </div>
@@ -135,13 +154,18 @@
                                             <div class="row">
                                                 <div class="col-md-5 mb-4 pb-2">
                                                     <div data-mdb-input-init class="form-outline form-white">
-                                                        <input type="text" id="form3Examplea4" class="form-control form-control-lg" required data-th-field="*{codePostal}" minlength="5" maxlength="5" placeholder="Code postal" />
+                                                        <input type="text" id="form3Examplea4" class="form-control form-control-lg" required
+                                                                title="Le code postal doit contenir 5 chiffres"
+                                                               data-th-field="*{codePostal}" minlength="5" maxlength="5" placeholder="Code postal" />
 
                                                     </div>
                                                 </div>
                                                 <div class="col-md-7 mb-4 pb-2">
                                                     <div data-mdb-input-init class="form-outline form-white">
-                                                        <input type="text" id="form3Examplea5" class="form-control form-control-lg"  required  data-th-field="*{ville}" minlength="4" maxlength="20" placeholder="Ville"/>
+                                                        <input type="text" id="form3Examplea5" class="form-control form-control-lg"  required
+                                                               pattern="^[a-zA-ZÀ-ÿ\- ]{2,50}$"
+                                                               title="Le nom doit contenir entre 2 et 50 caractères et ne peut inclure que des lettres, des espaces et des tirets."
+                                                               data-th-field="*{ville}"  placeholder="Ville"/>
 
                                                     </div>
                                                 </div>
@@ -150,7 +174,10 @@
                                             <div class="row">
                                                 <div class="col-md-7 mb-4 pb-2">
                                                     <div data-mdb-input-init class="form-outline form-white">
-                                                        <input type="tel" id="form3Examplea8" class="form-control form-control-lg" required  data-th-field="*{telephone}" minlength="4" maxlength="20" placeholder="Numéro de téléphone" />
+                                                        <input type="tel" id="form3Examplea8" class="form-control form-control-lg" required
+                                                               pattern="^\+?[0-9]{10,15}$"
+                                                               title="Le numéro de téléphone doit contenir entre 10 et 15 chiffres."
+                                                               data-th-field="*{telephone}"  placeholder="Numéro de téléphone" />
 
                                                     </div>
                                                 </div>

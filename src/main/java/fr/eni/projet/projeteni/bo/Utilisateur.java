@@ -6,18 +6,55 @@ import org.springframework.lang.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.validation.constraints.*;
+
+
 public class Utilisateur {
 
     private int noUtilisateur;
+    @NotBlank(message = "Le pseudo ne peut pas être vide")
+    @Size(min = 1, max = 10, message = "Le pseudo doit contenir entre 1 et 10 caractères")
+    @Pattern(regexp = "^[a-zA-Z0-9_-]+$", message = "Le pseudo ne peut contenir que des caractères alphanumériques, des tirets ou des underscores")
     private String pseudo;
+
+    @NotBlank(message = "Le nom ne peut pas être vide")
+    @Size(max = 100, message = "Le nom ne peut pas dépasser 100 caractères")
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ ]+$", message = "Le nom ne doit contenir que des lettres et des espaces")
     private String nom;
+
+    @NotBlank(message = "Le prénom ne peut pas être vide")
+    @Size(max = 100, message = "Le prénom ne peut pas dépasser 100 caractères")
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ ]+$", message = "Le prénom ne doit contenir que des lettres et des espaces")
     private String prenom;
+
+    @NotBlank(message = "L'email ne peut pas être vide")
+    @Size(max = 254, message = "L'email ne peut pas dépasser 254 caractères")
+    @Email(message = "Format d'email invalide")
     private String email;
+
+    @Pattern(regexp = "^\\+?[0-9]{10,15}$", message = "Le numéro de téléphone doit contenir entre 10 et 15 chiffres avec un éventuel '+' au début")
     private String telephone;
+
+    @NotBlank(message = "La rue ne peut pas être vide")
+    @Size(max = 255, message = "La rue ne peut pas dépasser 255 caractères")
     private String rue;
+
+    @Min(value = 10000, message = "Le code postal doit être un nombre à 5 chiffres")
+    @Max(value = 99999, message = "Le code postal doit être un nombre à 5 chiffres")
     private int codePostal;
+
+    @NotBlank(message = "La ville ne peut pas être vide")
+    @Size(min = 2, max = 50, message = "La ville doit contenir entre 2 et 50 caractères")
+    @Pattern(regexp = "^[a-zA-ZÀ-ÿ\\- ]+$", message = "Le nom de la ville ne peut contenir que des lettres, des espaces et des tirets")
     private String ville;
+
+    @NotBlank(message = "Le mot de passe ne peut pas être vide")
+    @Size(min = 8, max = 64, message = "Le mot de passe doit contenir entre 8 et 64 caractères")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,64}$",
+            message = "Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial")
     private String motDePasse;
+
+    @PositiveOrZero(message = "Le crédit ne peut pas être négatif")
     private int credit;
     private List<ArticleVendu> articleVendus = new ArrayList<ArticleVendu>();
     private List<ArticleVendu> articleAchetes = new ArrayList<ArticleVendu>();
