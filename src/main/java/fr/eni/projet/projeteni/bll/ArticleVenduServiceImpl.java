@@ -16,7 +16,6 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
         this.daoArticleVendu = daoArticleVendu;
     }
 
-
     @Override
     public List<ArticleVendu> getAllArticleVendu() {
         return daoArticleVendu.read();
@@ -47,5 +46,18 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
         daoArticleVendu.delete(articleVendu);
     }
 
+    // New methods for filtering articles
 
+    public List<ArticleVendu> getArticlesByCategory(Long categoryId) {
+        return daoArticleVendu.findByCategory(categoryId);
+    }
+
+    public List<ArticleVendu> getArticlesByCategoryAndName(Long categoryId, String nomArticle) {
+        return daoArticleVendu.findByCategoryAndName(categoryId, nomArticle);
+    }
+
+    public List<ArticleVendu> getArticlesByName(String nomArticle) {
+        return daoArticleVendu.findByName(nomArticle);
+    }
 }
+

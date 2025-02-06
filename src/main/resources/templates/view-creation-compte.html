@@ -113,10 +113,14 @@
                                                 </div>
                                                 <div class="mb-4 pb-2">
                                                     <div data-mdb-input-init class="form-outline">
+
                                                         <input type="password" name="verifmdp" id="mdpVerif" class="form-control form-control-lg"  required
                                                                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,64}$"
                                                                title="La confirmation doit respecter les mêmes critères que le mot de passe"
                                                                data-th-field="*{motDePasse}" placeholder="Confirmez votre mot de passe"/>
+
+                                                        <input type="password" name="verifmdp" id="mdpVerif" class="form-control form-control-lg"  required  minlength="4" maxlength="20" placeholder="Confirmez votre mot de passe"/>
+
 
                                                     </div>
                                                 </div>

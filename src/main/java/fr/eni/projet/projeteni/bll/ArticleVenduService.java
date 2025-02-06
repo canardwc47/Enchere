@@ -16,4 +16,10 @@ public interface ArticleVenduService {
     void deleteArticleVendu(int id);
 
     void deleteArticleVendu(ArticleVendu articleVendu);
+
+    List<ArticleVendu> getArticlesByCategory(Long categorieId);
+
+    List<ArticleVendu> getArticlesByCategoryAndName(Long categorieId, String nomArticle);
+
+    List<ArticleVendu> getArticlesByName(String nomArticle);
 }
